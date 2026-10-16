@@ -7,6 +7,22 @@
 <title>The Louisiana Bean · Coffee Shop in Carencro &amp; Coffee Truck</title>
 <meta name="description" content="The Louisiana Bean: a coffee shop in Carencro and a coffee truck around Lafayette. Lattes, Cool Bean frappes and energy refreshers.">
 <meta name="theme-color" content="#231812">
+<script>
+/* Always the newest on reload. GitHub Pages caches the page for up to 10 minutes at
+   its CDN, so after a deploy a reload can still show the old one. version.json is
+   fetched with a unique URL (never cached); if it names a newer build than this
+   page, hop once to ?v=<build>, a URL the cache has never seen. No popup.
+   deploy.sh stamps BUILD, version.json and every asset ?v= together. */
+var BUILD='20261016-165027';
+(function(){
+  if(location.protocol==='file:') return;
+  fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+    if(!j||!j.build||j.build===BUILD) return;
+    var k='lb-fresh-'+j.build; try{ if(sessionStorage.getItem(k)) return; sessionStorage.setItem(k,'1'); }catch(e){}
+    var u=new URL(location.href); u.searchParams.set('v',j.build); location.replace(u.toString());
+  }).catch(function(){});
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&family=Rubik:wght@800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
@@ -63,7 +79,7 @@
 
   /* ---------- hero ---------- */
   .hero{position:relative;color:var(--crema);min-height:min(84svh,680px);display:flex;align-items:center;overflow:hidden;background:#1a110c}
-  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
+  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261016-165027) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
   @media (min-width:821px){
     .hero-bg{top:auto;aspect-ratio:910/412;background-size:100% auto;background-position:center bottom;
       -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 38%);mask-image:linear-gradient(180deg,transparent 0,#000 38%)}
@@ -265,6 +281,25 @@
   .reveal-on .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
   .reveal-on .rv.in{opacity:1;transform:none}
 
+  /* music button (bottom left; the demo tag owns bottom right) */
+  .music-btn{position:fixed;left:12px;bottom:12px;z-index:55;display:flex;align-items:center;gap:9px;padding:9px 15px 9px 13px;border-radius:999px;
+    border:1px solid rgba(226,170,108,.45);background:rgba(35,24,18,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    color:var(--caramel-2);cursor:pointer;font:600 .7rem Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+  .music-btn .eq{display:flex;align-items:center;height:14px;flex:none}
+  .music-btn i{display:block;width:2px;height:4px;margin:0 1.5px;background:currentColor;transition:height .3s}
+  .music-btn.on i{animation:eq 1.15s ease-in-out infinite}
+  .music-btn.on i:nth-child(2){animation-delay:.19s}.music-btn.on i:nth-child(3){animation-delay:.38s}
+  @keyframes eq{0%,100%{height:4px}50%{height:14px}}
+  .music-btn.invite{animation:invite 2.6s ease-in-out infinite}
+  .music-btn.invite i:nth-child(2){height:9px}
+  @keyframes invite{0%,100%{box-shadow:0 8px 24px rgba(0,0,0,.35),0 0 0 0 rgba(226,170,108,.4)}50%{box-shadow:0 8px 24px rgba(0,0,0,.35),0 0 0 9px rgba(226,170,108,0)}}
+  .music-btn.off{color:rgba(246,236,224,.6);border-color:rgba(246,236,224,.25)}
+  #lbdbg{position:fixed;left:0;right:0;bottom:0;z-index:9999;max-height:46vh;background:rgba(6,7,8,.96);border-top:1px solid var(--caramel);font:11px/1.45 ui-monospace,Menlo,monospace;color:#cfe8cf}
+  #lbdbg .hd{display:flex;gap:8px;align-items:center;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.12)}
+  #lbdbg .hd b{color:var(--caramel-2);flex:1}
+  #lbdbg button{font:inherit;padding:5px 11px;border:1px solid var(--caramel);background:transparent;color:var(--caramel-2);border-radius:3px}
+  #lbdbg .body{overflow:auto;max-height:36vh;padding:8px 10px;white-space:pre-wrap;word-break:break-word}
+  #lbdbg .bad{color:#ff8f7a} #lbdbg .good{color:#8fe39a} #lbdbg .t{color:#7d8a7d}
   .demo-tag{position:fixed;right:12px;bottom:12px;z-index:50;background:rgba(35,24,18,.92);color:var(--caramel-2);font-size:.72rem;font-weight:600;padding:7px 11px;border-radius:999px;border:1px solid rgba(226,170,108,.35)}
 
   @media (prefers-reduced-motion:reduce){
@@ -309,6 +344,8 @@
 </svg>
 
 <span class="demo-tag">Concept preview, made by a friend</span>
+<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261016-165027" type="audio/mp4"></audio>
+<button class="music-btn" id="musicbtn" type="button" aria-pressed="false" aria-label="Play music"><span class="eq"><i></i><i></i><i></i></span><span id="musiclbl">Play music</span></button>
 
 <nav id="top">
   <div class="wrap">
@@ -337,7 +374,7 @@
 
 <header class="hero">
   <div class="hero-bg" role="img" aria-label="The Louisiana Bean coffee truck at sunset"></div>
-  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg" aria-hidden="true"><source src="img/pour.mp4" type="video/mp4"></video></div>
+  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261016-165027" aria-hidden="true"><source src="img/pour.mp4?v=20261016-165027" type="video/mp4"></video></div>
   <svg class="garland" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true" id="garland"></svg>
   <svg class="lights" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true" id="lights"></svg>
   <div class="leaves" id="leaves" aria-hidden="true"></div>
@@ -440,7 +477,7 @@
     </div>
     <div class="truck-grid">
       <div class="rv">
-        <div class="truck-photo"><img src="img/truck.jpg" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
+        <div class="truck-photo"><img src="img/truck.jpg?v=20261016-165027" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
         <div class="book-card">
           <h3>Bring the truck to you</h3>
           <p>Offices, schools, makers markets, church events, weddings and parties. Tell us the date and place and we'll pull up and keep the line moving.</p>
@@ -459,7 +496,7 @@
 <section class="crew" id="crew">
   <svg class="stain" style="width:300px;height:300px;right:-100px;bottom:-40px;opacity:.3;transform:rotate(-30deg)"><use href="#stain"/></svg>
   <div class="wrap crew-grid">
-    <div class="crew-photo rv"><img src="img/team.jpg" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
+    <div class="crew-photo rv"><img src="img/team.jpg?v=20261016-165027" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
     <div class="rv">
       <div class="eyebrow">Our Crew</div>
       <h2 style="font-size:clamp(2rem,4vw,2.7rem)">Coffee made by people you know.</h2>
@@ -751,5 +788,148 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()
 
 document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
+<script>
+/* Music diagnostics, hidden unless the URL has ?debug=1. Ask for the Copy output. */
+window.LBLOG=function(){};
+(function(){
+  if(!/[?&]debug=1/.test(location.search)) return;
+  var t0=Date.now(), lines=[];
+  var box=document.createElement('div'); box.id='lbdbg';
+  box.innerHTML='<div class="hd"><b>MUSIC LOG</b><button id="lbreset">Reset</button><button id="lbcopy">Copy</button><button id="lbclose">Hide</button></div><div class="body" id="lbbody"></div>';
+  document.body.appendChild(box);
+  document.getElementById('lbclose').onclick=function(){box.remove()};
+  document.getElementById('lbreset').onclick=function(){try{localStorage.removeItem('lb-music')}catch(e){} location.reload()};
+  document.getElementById('lbcopy').onclick=function(){var b=this;navigator.clipboard&&navigator.clipboard.writeText(lines.join('\n')).then(function(){b.textContent='Copied'})};
+  window.LBLOG=function(msg,kind){
+    var txt='+'+((Date.now()-t0)/1000).toFixed(2)+'s  '+msg; lines.push(txt); if(lines.length>400) lines.shift();
+    var d=document.createElement('div'); if(kind) d.className=kind; d.textContent=txt;
+    var b=document.getElementById('lbbody'); b.appendChild(d); b.scrollTop=b.scrollHeight;
+  };
+  LBLOG('BUILD '+BUILD+'   <- if this is not the build you were told to test, you are on a CACHED page');
+  LBLOG('UA '+navigator.userAgent);
+})();
+</script>
+<script>
+/* Background music, ported from the Elite Homes site where every rule below was
+   proven on a real iPhone. NO WEB AUDIO: an iOS audio context comes up suspended
+   on a scroll and swallows the sound. Level and fades are baked into music.m4a.
+   iPhone + desktop Chrome start on the first scroll; macOS Safari needs a click. */
+(function(){
+  var btn=document.getElementById('musicbtn'), lbl=document.getElementById('musiclbl'), el=document.getElementById('bgm');
+  if(!btn||!el) return;
+  if(!el.canPlayType||!el.canPlayType('audio/mp4')){ btn.style.display='none'; return; }
+  var VOL=1, fadeTimer=null;
+  var WAKE=['click','mousedown','mouseup','touchend','pointerup','touchstart','keydown','keyup','wheel','scroll'];
+  var wanted=true, playing=false, confirmTimer=null, mutedFallback=false, attempting=false, lastTry=0, noActLogged=false, audibleBlocked=false;
+  try{ wanted = localStorage.getItem('lb-music')!=='off' }catch(e){}
+
+  function setVol(v){ try{ el.volume=Math.max(0,Math.min(1,v)) }catch(e){} }
+  /* done() MUST always run: iOS ignores el.volume, so a fade never converges. */
+  function fadeTo(target,done){
+    clearInterval(fadeTimer);
+    var deadline=Date.now()+1200, fired=false;
+    function finish(){ if(fired) return; fired=true; clearInterval(fadeTimer); if(done) done(); }
+    fadeTimer=setInterval(function(){
+      var v=el.volume, step=0.04;
+      if(Math.abs(v-target)<=step){ setVol(target); finish(); return; }
+      if(Date.now()>deadline){ finish(); return; }
+      setVol(v<target ? v+step : v-step);
+    },40);
+  }
+  var volumeWorks=(function(){ try{ var b=el.volume,p=(b>0.5?0.25:0.75); el.volume=p; var m=Math.abs(el.volume-p)<0.01; el.volume=b; return m }catch(e){ return false } })();
+
+  function paint(){
+    var inviting = wanted && !playing;
+    btn.classList.toggle('on', wanted && playing);
+    btn.classList.toggle('invite', inviting);
+    btn.classList.toggle('off', !wanted);
+    btn.setAttribute('aria-pressed',(wanted&&playing)?'true':'false');
+    btn.setAttribute('aria-label', inviting?'Play music':(wanted?'Turn music off':'Turn music on'));
+    lbl.textContent = inviting?'Play music':(wanted?'Sound on':'Sound off');
+  }
+  function attempt(){
+    if(playing||!wanted||attempting||mutedFallback) return;
+    var now=Date.now(); if(now-lastTry<500) return; lastTry=now;
+    attempting=true;
+    if(audibleBlocked){ attempting=false; goMuted(); return; }
+    LBLOG('attempt readyState='+el.readyState+' activation='+(navigator.userActivation?navigator.userActivation.isActive:'?'));
+    setVol(0);
+    var pr=el.play();   /* bare and first: a gesture's permission does not survive an await */
+    (pr&&pr.then?pr:Promise.resolve()).then(function(){
+      if(!wanted){ el.pause(); return; }
+      LBLOG('play() resolved, verifying'); confirm();
+    }).catch(function(err){ attempting=false; LBLOG('play() refused: '+(err&&err.name),'bad'); });
+  }
+  /* play() resolving is not proof of sound; only a moving clock is. */
+  function confirm(){
+    clearInterval(confirmTimer);
+    var t0=el.currentTime, n=0;
+    confirmTimer=setInterval(function(){
+      n++;
+      if(!wanted){ clearInterval(confirmTimer); return; }
+      if(el.paused){ clearInterval(confirmTimer); attempting=false; LBLOG('declined: paused itself','bad'); lost(); return; }
+      if(el.currentTime>t0+0.05){
+        clearInterval(confirmTimer); attempting=false;
+        if(el.muted){ goMuted(); return; }
+        playing=true; detach(); paint(); fadeTo(VOL);
+        LBLOG('CONFIRMED playing t='+el.currentTime.toFixed(2),'good'); return;
+      }
+      if(n>16){ clearInterval(confirmTimer); attempting=false; LBLOG('declined: clock never moved','bad'); lost(); }
+    },250);
+  }
+  function lost(){ playing=false; attempting=false; paint(); attach(); goMuted(); }
+  /* Safari allows MUTED playback; run silently so the first click brings sound instantly. */
+  function goMuted(){
+    if(!wanted) return; attach(); if(mutedFallback) return;
+    mutedFallback=true; el.muted=true; setVol(VOL);
+    var pr=el.play();
+    (pr&&pr.then?pr:Promise.resolve()).then(function(){ LBLOG('running MUTED, waiting for a click') }).catch(function(err){ mutedFallback=false; LBLOG('muted refused: '+(err&&err.name),'bad') });
+  }
+  function unmuteIfPossible(){
+    if(!mutedFallback||!wanted) return false;
+    var active = navigator.userActivation ? navigator.userActivation.isActive : true;
+    if(!active){ if(!noActLogged){ noActLogged=true; LBLOG('waiting: a scroll is not permission here, a click is') } return false; }
+    el.muted=false; mutedFallback=false; audibleBlocked=false; attempting=true; setVol(0);
+    if(el.paused){ var pr=el.play(); if(pr&&pr.catch) pr.catch(function(){}); }
+    LBLOG('un-muted on a real activation','good'); confirm(); return true;
+  }
+  function silence(){
+    playing=false; paint();
+    if(!volumeWorks){ clearInterval(fadeTimer); el.pause(); return; }
+    fadeTo(0,function(){ el.pause() });
+  }
+  var lastEvt=null;
+  function wake(e){
+    if(e && e===lastEvt) return; lastEvt=e;
+    if(e && e.target && e.target.nodeType===1 && (e.target===btn || btn.contains(e.target))) return;
+    if(!wanted) return;
+    if(unmuteIfPossible()) return;
+    attempt();
+  }
+  function detach(){ WAKE.forEach(function(ev){ window.removeEventListener(ev,wake); document.removeEventListener(ev,wake); }); }
+  function attach(){ WAKE.forEach(function(ev){ window.addEventListener(ev,wake,{passive:true}); document.addEventListener(ev,wake,{passive:true}); }); }
+
+  btn.addEventListener('click',function(){
+    if(wanted && !playing){ if(!unmuteIfPossible()) attempt(); return; }
+    if(playing){ detach(); wanted=false; try{localStorage.setItem('lb-music','off')}catch(e){} silence(); }
+    else { wanted=true; try{localStorage.setItem('lb-music','on')}catch(e){} paint(); attach(); attempt(); }
+  });
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden||!wanted||!playing) return;
+    if(el.paused){ var pr=el.play(); if(pr&&pr.catch) pr.catch(function(){}); }
+  });
+  el.addEventListener('pause',function(){ if(wanted && playing){ audibleBlocked=true; LBLOG('paused by the browser','bad'); lost(); } });
+
+  paint();
+  if(wanted) attach();
+  LBLOG('init wanted='+wanted);
+  window.addEventListener('load',function(){
+    if(!wanted||playing) return;
+    try{ el.preload='auto'; el.load(); }catch(e){}   /* buffer BEFORE the gesture */
+    attempt();
+  });
+})();
+</script>
 </body>
+
 </html>
