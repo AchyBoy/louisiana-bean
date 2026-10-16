@@ -13,7 +13,7 @@
    fetched with a unique URL (never cached); if it names a newer build than this
    page, hop once to ?v=<build>, a URL the cache has never seen. No popup.
    deploy.sh stamps BUILD, version.json and every asset ?v= together. */
-var BUILD='20261016-170805';
+var BUILD='20261016-180533';
 (function(){
   if(location.protocol==='file:') return;
   fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
@@ -23,6 +23,7 @@ var BUILD='20261016-170805';
   }).catch(function(){});
 })();
 </script>
+<script src="/visits/t.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&family=Rubik:wght@800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
@@ -79,7 +80,7 @@ var BUILD='20261016-170805';
 
   /* ---------- hero ---------- */
   .hero{position:relative;color:var(--crema);min-height:min(84svh,680px);display:flex;align-items:center;overflow:hidden;background:#1a110c}
-  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261016-170805) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
+  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261016-180533) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
   @media (min-width:821px){
     .hero-bg{top:auto;aspect-ratio:910/412;background-size:100% auto;background-position:center bottom;
       -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 38%);mask-image:linear-gradient(180deg,transparent 0,#000 38%)}
@@ -342,7 +343,7 @@ var BUILD='20261016-170805';
   </defs>
 </svg>
 
-<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261016-170805" type="audio/mp4"></audio>
+<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261016-180533" type="audio/mp4"></audio>
 <button class="music-btn" id="musicbtn" type="button" aria-pressed="false" aria-label="Play music"><span class="eq"><i></i><i></i><i></i></span><span id="musiclbl">Play music</span></button>
 
 <nav id="top">
@@ -372,7 +373,7 @@ var BUILD='20261016-170805';
 
 <header class="hero">
   <div class="hero-bg" role="img" aria-label="The Louisiana Bean coffee truck at sunset"></div>
-  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261016-170805" aria-hidden="true"><source src="img/pour.mp4?v=20261016-170805" type="video/mp4"></video></div>
+  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261016-180533" aria-hidden="true"><source src="img/pour.mp4?v=20261016-180533" type="video/mp4"></video></div>
   <svg class="garland" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true" id="garland"></svg>
   <svg class="lights" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true" id="lights"></svg>
   <div class="leaves" id="leaves" aria-hidden="true"></div>
@@ -475,7 +476,7 @@ var BUILD='20261016-170805';
     </div>
     <div class="truck-grid">
       <div class="rv">
-        <div class="truck-photo"><img src="img/truck.jpg?v=20261016-170805" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
+        <div class="truck-photo"><img src="img/truck.jpg?v=20261016-180533" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
         <div class="book-card">
           <h3>Bring the truck to you</h3>
           <p>Offices, schools, makers markets, church events, weddings and parties. Tell us the date and place and we'll pull up and keep the line moving.</p>
@@ -494,7 +495,7 @@ var BUILD='20261016-170805';
 <section class="crew" id="crew">
   <svg class="stain" style="width:300px;height:300px;right:-100px;bottom:-40px;opacity:.3;transform:rotate(-30deg)"><use href="#stain"/></svg>
   <div class="wrap crew-grid">
-    <div class="crew-photo rv"><img src="img/team.jpg?v=20261016-170805" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
+    <div class="crew-photo rv"><img src="img/team.jpg?v=20261016-180533" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
     <div class="rv">
       <div class="eyebrow">Our Crew</div>
       <h2 style="font-size:clamp(2rem,4vw,2.7rem)">Coffee made by people you know.</h2>
@@ -671,7 +672,7 @@ var cur=null, sel={};
 var sheet=document.getElementById('sheet'), scrim=document.getElementById('scrim');
 function money(n){return '$'+n.toFixed(2)}
 function openSheet(d){
-  cur=d; sel={size:0, milk:'Regular', shot:false, flavor:false, foam:false, blend:false};
+  cur=d; if(window.track) track('drink', d.n); sel={size:0, milk:'Regular', shot:false, flavor:false, foam:false, blend:false};
   document.getElementById('sheetName').textContent=d.n;
   document.getElementById('sheetSub').textContent=d.s||'Build it your way';
   var h='';
@@ -869,7 +870,7 @@ window.LBLOG=function(){};
       if(el.currentTime>t0+0.05){
         clearInterval(confirmTimer); attempting=false;
         if(el.muted){ goMuted(); return; }
-        playing=true; detach(); paint(); fadeTo(VOL);
+        playing=true; detach(); paint(); fadeTo(VOL); if(window.track) track('music','on');
         LBLOG('CONFIRMED playing t='+el.currentTime.toFixed(2),'good'); return;
       }
       if(n>16){ clearInterval(confirmTimer); attempting=false; LBLOG('declined: clock never moved','bad'); lost(); }
@@ -909,7 +910,7 @@ window.LBLOG=function(){};
 
   btn.addEventListener('click',function(){
     if(wanted && !playing){ if(!unmuteIfPossible()) attempt(); return; }
-    if(playing){ detach(); wanted=false; try{localStorage.setItem('lb-music','off')}catch(e){} silence(); }
+    if(playing){ if(window.track) track('music','off'); detach(); wanted=false; try{localStorage.setItem('lb-music','off')}catch(e){} silence(); }
     else { wanted=true; try{localStorage.setItem('lb-music','on')}catch(e){} paint(); attach(); attempt(); }
   });
   document.addEventListener('visibilitychange',function(){
