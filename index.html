@@ -4,219 +4,220 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Louisiana Bean · Coffee Shop &amp; Coffee Truck</title>
-<meta name="description" content="Louisiana Bean, a coffee shop and coffee truck. Espresso, cold brew, iced lattes and something sweet.">
-<meta name="theme-color" content="#2b1a12">
+<title>The Louisiana Bean · Coffee Shop in Carencro &amp; Coffee Truck</title>
+<meta name="description" content="The Louisiana Bean: a coffee shop in Carencro and a coffee truck around Lafayette. Lattes, Cool Bean frappes and energy refreshers.">
+<meta name="theme-color" content="#231812">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&family=Rubik:wght@800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --roast:#2b1a12; --roast-2:#3d2619; --crema:#f6ead8; --cream:#fffaf2;
-    --gold:#d9a441; --gold-2:#f0c063; --bayou:#2f5d50; --chicory:#8a4b2a;
-    --ink:#2b1a12; --muted:#7a6656; --line:#ead9c2;
-    --r:18px;
+    --roast:#231812; --roast-2:#36241a; --crema:#f6ece0; --cream:#fffaf4;
+    --brown:#6e4b33; --ring:#9a5a36; --caramel:#c98a4b; --caramel-2:#e2aa6c;
+    --ink:#231812; --muted:#7a6656; --line:#eadccb; --r:18px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--cream);line-height:1.55;-webkit-font-smoothing:antialiased}
   h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.08;margin:0 0 .4em}
   a{color:inherit}
+  img{max-width:100%;display:block}
   .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
-  .eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--chicory)}
+  .eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--ring)}
+  section{padding:88px 0}
+  .head{max-width:640px;margin-bottom:36px}
+  .head h2{font-size:clamp(2rem,4vw,2.8rem)}
+  .head p{color:var(--muted);font-size:1.05rem;margin:0}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:700;text-decoration:none;font-size:.95rem;transition:transform .15s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-main{background:var(--caramel);color:var(--roast);box-shadow:0 6px 18px rgba(201,138,75,.35)}
+  .btn-ghost{border:1.5px solid rgba(246,236,224,.5);color:var(--crema)}
+  .btn-dark{background:var(--roast);color:var(--crema)}
 
   /* nav */
-  nav{position:sticky;top:0;z-index:20;background:rgba(43,26,18,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--crema)}
+  nav{position:sticky;top:0;z-index:20;background:rgba(35,24,18,.93);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--crema)}
   nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
-  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:Fraunces,serif;font-weight:700;font-size:1.2rem}
-  .brand svg{width:30px;height:30px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:Rubik,sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:.02em;text-transform:uppercase}
+  .brand .logo{width:38px;height:38px}
   nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:.92rem;font-weight:500}
   nav ul a{text-decoration:none;opacity:.85}
-  nav ul a:hover{opacity:1;color:var(--gold-2)}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:700;text-decoration:none;font-size:.95rem;transition:transform .15s,box-shadow .15s}
-  .btn:hover{transform:translateY(-1px)}
-  .btn-gold{background:var(--gold);color:var(--roast);box-shadow:0 6px 18px rgba(217,164,65,.35)}
-  .btn-ghost{border:1.5px solid rgba(246,234,216,.5);color:var(--crema)}
-  .btn-dark{background:var(--roast);color:var(--crema)}
-  @media (max-width:760px){ nav ul{display:none} }
+  nav ul a:hover{opacity:1;color:var(--caramel-2)}
+  @media (max-width:760px){ nav ul{display:none} .brand{font-size:.9rem;white-space:nowrap} nav .btn{white-space:nowrap} }
+  @media (max-width:400px){ nav .btn{display:none} }
+
+  /* logo (drawn to match their sign) */
+  .logo text{font-family:Rubik,sans-serif;font-weight:800;fill:#1d1d1d}
 
   /* hero */
   .hero{position:relative;overflow:hidden;color:var(--crema);background:
-      radial-gradient(1200px 500px at 85% -10%, rgba(217,164,65,.35), transparent 60%),
-      radial-gradient(700px 400px at -10% 110%, rgba(47,93,80,.55), transparent 60%),
-      linear-gradient(160deg,#2b1a12 0%,#3d2619 55%,#24150e 100%)}
-  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-top:84px;padding-bottom:96px}
-  .hero h1{font-size:clamp(2.6rem,6.4vw,4.6rem);font-weight:900;letter-spacing:-.01em}
-  .hero h1 em{font-style:normal;color:var(--gold-2)}
-  .hero p.lead{font-size:1.15rem;max-width:34ch;opacity:.88;margin:0 0 28px}
-  .hero .eyebrow{color:var(--gold-2)}
+      radial-gradient(1100px 500px at 85% -10%, rgba(201,138,75,.32), transparent 60%),
+      radial-gradient(700px 420px at -10% 110%, rgba(154,90,54,.35), transparent 60%),
+      linear-gradient(160deg,#231812 0%,#36241a 55%,#1c120d 100%)}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-top:80px;padding-bottom:96px}
+  .hero h1{font-size:clamp(2.5rem,6vw,4.4rem);font-weight:800;letter-spacing:-.01em}
+  .hero h1 em{font-style:normal;color:var(--caramel-2)}
+  .hero p.lead{font-size:1.15rem;max-width:36ch;opacity:.9;margin:0 0 28px}
+  .hero .eyebrow{color:var(--caramel-2)}
   .cta{display:flex;flex-wrap:wrap;gap:12px}
-  .cup{justify-self:center;width:min(380px,80vw);aspect-ratio:1;position:relative}
-  .cup .ring{position:absolute;inset:0;border-radius:50%;border:1.5px dashed rgba(240,192,99,.35);animation:spin 40s linear infinite}
-  .cup svg.main{position:absolute;inset:12%;width:76%;height:76%;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45))}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .steam path{stroke-dasharray:6 10;animation:steam 3s linear infinite}
-  @keyframes steam{to{stroke-dashoffset:-32}}
-  @media (prefers-reduced-motion:reduce){.cup .ring,.steam path{animation:none}}
-  @media (max-width:820px){ .hero .wrap{grid-template-columns:1fr;padding-top:56px;padding-bottom:64px} .cup{width:min(300px,70vw);order:-1} }
+  .hero-logo{justify-self:center;width:min(390px,78vw);filter:drop-shadow(0 30px 50px rgba(0,0,0,.5))}
+  @media (max-width:820px){ .hero .wrap{grid-template-columns:1fr;padding-top:48px;padding-bottom:64px} .hero-logo{width:min(280px,66vw);order:-1} }
   .wave{display:block;width:100%;height:60px;margin-top:-1px}
 
-  /* strip */
   .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:-40px;position:relative;z-index:2}
-  .strip div{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:0 10px 30px rgba(43,26,18,.07)}
+  .strip a{display:block;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:0 10px 30px rgba(35,24,18,.07)}
   .strip b{display:block;font-family:Fraunces,serif;font-size:1.15rem;margin-bottom:2px}
   .strip span{color:var(--muted);font-size:.93rem}
   @media (max-width:760px){ .strip{grid-template-columns:1fr;margin-top:-28px} }
 
-  section{padding:88px 0}
-  .head{max-width:620px;margin-bottom:36px}
-  .head h2{font-size:clamp(2rem,4vw,2.8rem)}
-  .head p{color:var(--muted);font-size:1.05rem;margin:0}
-
   /* menu */
-  .menu-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+  .menu-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
   .menu-tabs button{font:inherit;font-weight:600;font-size:.92rem;border:1.5px solid var(--line);background:#fff;padding:9px 18px;border-radius:999px;cursor:pointer;color:var(--ink)}
   .menu-tabs button[aria-selected=true]{background:var(--roast);border-color:var(--roast);color:var(--crema)}
-  .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px}
-  .item{display:flex;align-items:baseline;gap:10px;padding:16px 0;border-bottom:1px dashed var(--line)}
-  .item h3{font-size:1.12rem;margin:0}
-  .item p{margin:3px 0 0;color:var(--muted);font-size:.92rem}
-  .item .dots{flex:1}
-  .item .price{font-weight:700;font-family:Fraunces,serif;font-size:1.1rem;white-space:nowrap}
-  .tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--gold);color:var(--roast);border-radius:6px;padding:2px 7px;margin-left:6px;vertical-align:2px}
   .menu-panel[hidden]{display:none}
-  .menu-note{margin-top:22px;color:var(--muted);font-size:.9rem}
-  @media (max-width:760px){ .menu-grid{grid-template-columns:1fr} }
-
-  /* favorites */
-  .favs{background:var(--crema)}
-  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  .card{background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);box-shadow:0 10px 30px rgba(43,26,18,.06)}
-  .card .ph{aspect-ratio:4/3;position:relative;display:grid;place-items:center}
-  .card .ph svg{width:42%;opacity:.95}
-  .ph-a{background:linear-gradient(135deg,#c98b4a,#6b3b1f)}
-  .ph-b{background:linear-gradient(135deg,#e8cfa6,#a5703f)}
-  .ph-c{background:linear-gradient(135deg,#3f6f60,#1d3a32)}
-  .card .body{padding:18px 20px 22px}
-  .card h3{font-size:1.25rem}
-  .card p{margin:0;color:var(--muted);font-size:.95rem}
-  @media (max-width:820px){ .cards{grid-template-columns:1fr} }
+  .board{background:var(--roast);color:var(--crema);border-radius:22px;padding:30px 32px;box-shadow:0 20px 50px rgba(35,24,18,.18)}
+  .board h3{font-family:'Fraunces',serif;font-style:italic;color:var(--caramel-2);font-weight:600;font-size:1.35rem;margin-bottom:10px}
+  .mrow{display:grid;grid-template-columns:1fr 70px 70px;gap:10px;padding:12px 0;border-bottom:1px dashed rgba(246,236,224,.16);align-items:baseline}
+  .mrow:last-child{border-bottom:0}
+  .mrow.hdr{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(246,236,224,.55);padding-top:0;border-bottom:1px solid rgba(246,236,224,.2)}
+  .mrow b{font-weight:600;letter-spacing:.02em}
+  .mrow small{display:block;color:rgba(246,236,224,.6);font-size:.82rem;margin-top:1px}
+  .mrow .p{text-align:right;font-family:Fraunces,serif;font-weight:600}
+  .mrow.one{grid-template-columns:1fr 70px}
+  .tag{display:inline-block;font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--caramel);color:var(--roast);border-radius:6px;padding:2px 7px;margin-left:6px;vertical-align:2px}
+  .menu-note{margin-top:18px;color:var(--muted);font-size:.92rem}
 
   /* truck */
-  .truck{background:var(--bayou);color:var(--crema);position:relative;overflow:hidden}
-  .truck .eyebrow{color:var(--gold-2)}
-  .truck .head p{color:rgba(246,234,216,.8)}
-  .truck-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
-  .sched{background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);overflow:hidden}
-  .sched .row{display:grid;grid-template-columns:110px 1fr auto;gap:12px;padding:15px 20px;border-bottom:1px solid rgba(255,255,255,.08);align-items:center}
-  .sched .row:last-child{border-bottom:0}
-  .sched .row b{font-family:Fraunces,serif;font-size:1.05rem}
-  .sched .row span{opacity:.85;font-size:.95rem}
-  .sched .row.today{background:rgba(217,164,65,.18)}
-  .sched .row.today b::after{content:"Today";font-family:Inter,sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--gold);color:var(--roast);border-radius:5px;padding:2px 6px;margin-left:8px;vertical-align:3px}
-  .truck-side h3{font-size:1.5rem}
-  .truck-side p{opacity:.85}
-  .truck-side ul{padding-left:20px;opacity:.9}
-  .truck-art{width:100%;max-width:440px;margin:6px 0 18px}
-  @media (max-width:820px){ .truck-grid{grid-template-columns:1fr} .sched .row{grid-template-columns:90px 1fr} .sched .row .time{grid-column:2} }
+  .truck{background:var(--crema)}
+  .truck-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:start}
+  .truck-photo{border-radius:22px;overflow:hidden;box-shadow:0 20px 50px rgba(35,24,18,.2)}
+  .truck-photo img{width:100%;aspect-ratio:910/412;object-fit:cover}
+  .book-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px 26px;margin-top:22px}
+  .book-card h3{font-size:1.4rem}
+  .book-card p{color:var(--muted);margin:0 0 16px}
+  .sched{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .sched .top{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:var(--brown);color:#fff}
+  .sched .top b{font-family:Rubik,sans-serif;font-weight:800;letter-spacing:.12em;font-size:1.05rem}
+  .sched .top span{font-size:.85rem;opacity:.85}
+  .stop{display:grid;grid-template-columns:118px 1fr;gap:14px;padding:16px 20px;border-bottom:1px solid var(--line)}
+  .stop:last-child{border-bottom:0}
+  .stop .when b{display:block;font-weight:700;font-size:.92rem;letter-spacing:.04em;text-transform:uppercase;color:var(--brown)}
+  .stop .when span{font-size:.86rem;color:var(--muted)}
+  .stop .where b{display:block;font-family:Fraunces,serif;font-size:1.08rem}
+  .stop .where span{font-size:.9rem;color:var(--muted)}
+  .stop .where a{font-size:.82rem;font-weight:600;color:var(--ring);text-decoration:none}
+  .stop.today{background:#fbf1e4;box-shadow:inset 4px 0 0 var(--caramel)}
+  .stop.today .when b::after{content:"Today";font-size:.6rem;letter-spacing:.06em;background:var(--caramel);color:var(--roast);border-radius:5px;padding:2px 6px;margin-left:6px;vertical-align:2px}
+  .stop.past{opacity:.5}
+  .pub{font-family:Inter,sans-serif;display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:#2f5d50;color:#fff;border-radius:5px;padding:2px 6px;margin-left:6px;vertical-align:2px}
+  .sched .foot{padding:14px 20px;background:#fbf6ef;font-size:.88rem;color:var(--muted)}
+  .sched .foot a{color:var(--ring);font-weight:600}
+  @media (max-width:860px){ .truck-grid{grid-template-columns:1fr} .stop{grid-template-columns:96px 1fr} }
 
-  /* about */
-  .about-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:52px;align-items:center}
-  .about-photo{aspect-ratio:4/5;border-radius:24px;background:linear-gradient(160deg,#a5703f,#3d2619);position:relative;overflow:hidden;display:grid;place-items:center;color:rgba(246,234,216,.7);font-size:.9rem;text-align:center;padding:20px}
-  .about-photo::after{content:"";position:absolute;inset:14px;border:1.5px solid rgba(246,234,216,.35);border-radius:16px}
-  .about p{font-size:1.06rem}
-  .sig{font-family:Fraunces,serif;font-size:1.3rem;font-style:italic;color:var(--chicory)}
-  @media (max-width:820px){ .about-grid{grid-template-columns:1fr} .about-photo{aspect-ratio:16/10} }
+  /* crew */
+  .crew-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+  .crew-photo{border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(35,24,18,.22)}
+  .crew-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%}
+  .crew p{font-size:1.06rem}
+  .sig{font-family:Fraunces,serif;font-size:1.3rem;font-style:italic;color:var(--ring)}
+  @media (max-width:860px){ .crew-grid{grid-template-columns:1fr;gap:30px} .crew-photo img{aspect-ratio:1/1} }
 
   /* visit */
   .visit{background:var(--crema)}
   .visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
   .panel{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px}
   .panel h3{font-size:1.4rem}
-  .hours{width:100%;border-collapse:collapse;font-size:.98rem}
-  .hours td{padding:8px 0;border-bottom:1px dashed var(--line)}
-  .hours td:last-child{text-align:right;font-weight:600}
-  .hours tr.today td{color:var(--chicory);font-weight:700}
-  .map{margin-top:18px;aspect-ratio:16/9;border-radius:14px;background:
-      linear-gradient(90deg,rgba(43,26,18,.06) 1px,transparent 1px) 0 0/28px 28px,
-      linear-gradient(rgba(43,26,18,.06) 1px,transparent 1px) 0 0/28px 28px,#efe3cf;display:grid;place-items:center;position:relative}
-  .map .pin{width:38px;height:38px;border-radius:50% 50% 50% 0;background:var(--chicory);transform:rotate(-45deg);box-shadow:0 6px 14px rgba(0,0,0,.25)}
-  .map .pin::after{content:"";position:absolute;width:14px;height:14px;background:#fff;border-radius:50%;top:12px;left:12px}
-  .contact-list{list-style:none;padding:0;margin:0 0 20px}
-  .contact-list li{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
-  .contact-list li b{min-width:90px}
+  .todo{border:1.5px dashed var(--caramel);background:#fdf6ec;border-radius:12px;padding:14px 16px;color:var(--brown);font-size:.93rem}
+  .map{margin-top:18px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .map iframe{display:block;width:100%;height:240px;border:0}
+  .contact-list{list-style:none;padding:0;margin:0 0 18px}
+  .contact-list li{display:flex;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line);align-items:center}
+  .contact-list li b{min-width:96px}
+  .contact-list a{color:var(--ring);font-weight:600;text-decoration:none}
   .socials{display:flex;gap:10px;margin-top:6px}
-  .socials a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--roast);color:var(--crema);text-decoration:none}
+  .socials a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--roast);color:var(--crema);text-decoration:none}
   .socials svg{width:20px;height:20px}
   @media (max-width:820px){ .visit-grid{grid-template-columns:1fr} }
 
-  /* book */
   .book{background:linear-gradient(135deg,var(--roast),var(--roast-2));color:var(--crema);text-align:center;border-radius:28px;padding:56px 28px;margin:0 auto;max-width:900px;position:relative;overflow:hidden}
-  .book::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(217,164,65,.28),transparent 70%);top:-180px;right:-120px}
+  .book::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(201,138,75,.28),transparent 70%);top:-180px;right:-120px}
   .book h2{font-size:clamp(1.8rem,4vw,2.6rem)}
   .book p{opacity:.85;max-width:52ch;margin:0 auto 26px}
+  .book .cta{justify-content:center}
 
-  footer{background:var(--roast);color:rgba(246,234,216,.7);padding:42px 0;font-size:.9rem}
+  footer{background:var(--roast);color:rgba(246,236,224,.7);padding:42px 0;font-size:.9rem}
   footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
   footer .brand{color:var(--crema)}
 
-  .demo-tag{position:fixed;right:12px;bottom:12px;z-index:50;background:rgba(43,26,18,.9);color:var(--gold-2);font-size:.72rem;font-weight:600;padding:7px 11px;border-radius:999px;text-decoration:none;border:1px solid rgba(240,192,99,.35)}
+  .demo-tag{position:fixed;right:12px;bottom:12px;z-index:50;background:rgba(35,24,18,.92);color:var(--caramel-2);font-size:.72rem;font-weight:600;padding:7px 11px;border-radius:999px;border:1px solid rgba(226,170,108,.35)}
 </style>
 </head>
 <body>
 
-<a class="demo-tag" href="#top">Concept preview · sample menu, prices &amp; hours</a>
+<!-- the round sign, drawn once and reused -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="fleur" viewBox="0 0 100 100">
+      <path d="M50 4C37 20 37 40 50 58C63 40 63 20 50 4Z"/>
+      <path d="M46 56C34 61 14 53 14 36C14 25 26 21 33 29C26 30 24 40 32 44C38 47 44 48 46 56Z"/>
+      <path d="M54 56C66 61 86 53 86 36C86 25 74 21 67 29C74 30 76 40 68 44C62 47 56 48 54 56Z"/>
+      <rect x="30" y="56" width="40" height="8" rx="3"/>
+      <path d="M44 64C41 75 36 83 29 90L42 87L50 73L58 87L71 90C64 83 59 75 56 64Z"/>
+    </symbol>
+    <symbol id="sign" viewBox="0 0 240 240">
+      <circle cx="120" cy="120" r="118" fill="#fff"/>
+      <circle cx="120" cy="120" r="118" fill="none" stroke="rgba(0,0,0,.08)" stroke-width="2"/>
+      <path d="M44 150 C 52 196, 120 214, 176 192" fill="none" stroke="#9a5a36" stroke-width="7" stroke-linecap="round" opacity=".85"/>
+      <path d="M60 78 C 66 64, 72 58, 78 54" fill="none" stroke="#9a5a36" stroke-width="6" stroke-linecap="round" opacity=".8"/>
+      <path d="M96 44 C 130 36, 170 44, 192 72" fill="none" stroke="#9a5a36" stroke-width="2" stroke-dasharray="14 6 3 6" opacity=".6"/>
+      <text x="84" y="104" text-anchor="middle" font-family="Rubik, Arial Black, sans-serif" font-weight="800" fill="#1d1d1d" font-size="34">THE</text>
+      <use href="#fleur" x="114" y="66" width="44" height="44" fill="#1d1d1d"/>
+      <circle cx="136" cy="96" r="3.2" fill="#9a5a36"/>
+      <text x="120" y="143" text-anchor="middle" font-family="Rubik, Arial Black, sans-serif" font-weight="800" fill="#1d1d1d" font-size="35" textLength="182" lengthAdjust="spacingAndGlyphs">LOUISIANA</text>
+      <text x="120" y="181" text-anchor="middle" font-family="Rubik, Arial Black, sans-serif" font-weight="800" fill="#1d1d1d" font-size="34">BEAN</text>
+    </symbol>
+  </defs>
+</svg>
+
+<span class="demo-tag">Concept preview, made by a friend</span>
 
 <nav id="top">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Louisiana Bean home">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="10" ry="13" transform="rotate(30 16 16)" fill="#d9a441"/><path d="M10 25c6-5 6-13 12-18" stroke="#2b1a12" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
-      Louisiana Bean
+    <a class="brand" href="#top" aria-label="The Louisiana Bean home">
+      <svg class="logo"><use href="#sign"/></svg>
+      The Louisiana Bean
     </a>
     <ul>
       <li><a href="#menu">Menu</a></li>
-      <li><a href="#truck">The Truck</a></li>
-      <li><a href="#about">Our Story</a></li>
+      <li><a href="#truck">Truck Schedule</a></li>
+      <li><a href="#crew">Our Crew</a></li>
       <li><a href="#visit">Visit</a></li>
     </ul>
-    <a class="btn btn-gold" href="#visit" style="padding:9px 16px;font-size:.88rem">Find us</a>
+    <a class="btn btn-main" href="#truck" style="padding:9px 16px;font-size:.88rem">Find the truck</a>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
     <div>
-      <div class="eyebrow">Coffee shop &amp; coffee truck</div>
-      <h1>Good coffee,<br><em>Louisiana</em> style.</h1>
-      <p class="lead">Espresso, cold brew and sweet iced lattes, poured with a little south Louisiana hospitality. Stop by the shop, or catch the truck around town.</p>
+      <div class="eyebrow">Coffee shop in Carencro · Coffee truck around Lafayette</div>
+      <h1>Acadiana's coffee, <em>wherever you are.</em></h1>
+      <p class="lead">Lattes, Cool Bean frappes and energy refreshers. Come see us at the shop in Carencro, or catch the truck at a stop near you this week.</p>
       <div class="cta">
-        <a class="btn btn-gold" href="#menu">See the menu</a>
-        <a class="btn btn-ghost" href="#truck">Where's the truck?</a>
+        <a class="btn btn-main" href="#truck">This week's truck stops</a>
+        <a class="btn btn-ghost" href="#menu">See the menu</a>
       </div>
     </div>
-    <div class="cup" aria-hidden="true">
-      <div class="ring"></div>
-      <svg class="main" viewBox="0 0 200 200">
-        <g class="steam" fill="none" stroke="#f0c063" stroke-width="4" stroke-linecap="round" opacity=".7">
-          <path d="M78 52c-8-12 8-18 0-32"/><path d="M100 48c-8-12 8-18 0-32"/><path d="M122 52c-8-12 8-18 0-32"/>
-        </g>
-        <path d="M48 70h104l-10 96a14 14 0 0 1-14 12H72a14 14 0 0 1-14-12z" fill="#f6ead8"/>
-        <path d="M52 100h96l-4 40H56z" fill="#d9a441"/>
-        <ellipse cx="100" cy="70" rx="56" ry="10" fill="#3d2619"/>
-        <ellipse cx="100" cy="68" rx="48" ry="6" fill="#8a4b2a"/>
-        <text x="100" y="126" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="15" fill="#2b1a12">LOUISIANA</text>
-        <text x="100" y="140" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="11" letter-spacing="3" fill="#2b1a12">BEAN</text>
-      </svg>
-    </div>
+    <svg class="hero-logo logo" viewBox="0 0 240 240" role="img" aria-label="The Louisiana Bean logo"><use href="#sign"/></svg>
   </div>
-  <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30c240 30 480 30 720 0s480-30 720 0v30H0z" fill="#fffaf2"/></svg>
+  <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30c240 30 480 30 720 0s480-30 720 0v30H0z" fill="#fffaf4"/></svg>
 </header>
 
 <div class="wrap">
   <div class="strip">
-    <div><b>Fresh every morning</b><span>Espresso pulled to order, cold brew steeped overnight.</span></div>
-    <div><b>Shop + truck</b><span>Sit down at the shop or grab one on the go from the truck.</span></div>
-    <div><b>Book the truck</b><span>Weddings, ballgames, office mornings, church events.</span></div>
+    <a href="#visit"><b>The shop in Carencro</b><span>Sit down, grab a drink, say hey to the crew.</span></a>
+    <a href="#truck"><b>The truck</b><span>A new stop every morning. See where it is today.</span></a>
+    <a href="#book"><b>Book the truck</b><span>Offices, schools, markets and private events.</span></a>
   </div>
 </div>
 
@@ -224,81 +225,49 @@
   <div class="wrap">
     <div class="head">
       <div class="eyebrow">The Menu</div>
-      <h2>Something for every kind of morning.</h2>
-      <p>Hot or iced, any drink can be made with oat or almond milk. Ask about the flavor of the week.</p>
+      <h2>Hot, iced, blended or bubbly.</h2>
+      <p>Every drink comes in medium or large. Make it blended, add cold foam, or swap in almond, oat or half &amp; half.</p>
     </div>
 
     <div class="menu-tabs" role="tablist">
-      <button role="tab" aria-selected="true" data-tab="coffee">Coffee</button>
-      <button role="tab" aria-selected="false" data-tab="iced">Iced &amp; Cold Brew</button>
-      <button role="tab" aria-selected="false" data-tab="other">Not Coffee</button>
-      <button role="tab" aria-selected="false" data-tab="eats">Eats</button>
+      <button role="tab" aria-selected="true" data-tab="coffee">Hot / Iced Coffee</button>
+      <button role="tab" aria-selected="false" data-tab="energy">Energy Refreshers</button>
+      <button role="tab" aria-selected="false" data-tab="addons">Add-ons</button>
     </div>
 
-    <div class="menu-panel" data-panel="coffee">
-      <div class="menu-grid">
-        <div class="item"><div><h3>Drip Coffee</h3><p>Our house roast, bottomless in the shop</p></div><span class="dots"></span><span class="price">$2.50</span></div>
-        <div class="item"><div><h3>Café au Lait</h3><p>Coffee and chicory with steamed milk</p></div><span class="dots"></span><span class="price">$3.75</span></div>
-        <div class="item"><div><h3>Latte</h3><p>Double shot, steamed milk, any flavor</p></div><span class="dots"></span><span class="price">$4.75</span></div>
-        <div class="item"><div><h3>Cappuccino</h3><p>Equal parts espresso, milk and foam</p></div><span class="dots"></span><span class="price">$4.50</span></div>
-        <div class="item"><div><h3>Praline Latte <span class="tag">House fave</span></h3><p>Brown sugar, pecan, a little caramel</p></div><span class="dots"></span><span class="price">$5.50</span></div>
-        <div class="item"><div><h3>Americano</h3><p>Espresso and hot water</p></div><span class="dots"></span><span class="price">$3.50</span></div>
-      </div>
+    <div class="menu-panel board" data-panel="coffee">
+      <h3>Hot / iced coffee</h3>
+      <div class="mrow hdr"><span></span><span class="p">Med</span><span class="p">Large</span></div>
+      <div class="mrow"><b>Drip Coffee</b><span class="p">3.25</span><span class="p">3.75</span></div>
+      <div class="mrow"><b>Americano</b><span class="p">3.50</span><span class="p">4.25</span></div>
+      <div class="mrow"><b>Hot / Iced Latte</b><span class="p">5.50</span><span class="p">6.25</span></div>
+      <div class="mrow"><b>Mocha / White Mocha</b><span class="p">5.75</span><span class="p">6.50</span></div>
+      <div class="mrow"><b>Caramel Macchiato</b><span class="p">5.75</span><span class="p">6.50</span></div>
+      <div class="mrow"><b>Cool Bean <span class="tag">Frappe</span></b><span class="p">6.00</span><span class="p">7.00</span></div>
+      <div class="mrow one"><b>Espresso Shot</b><span class="p">1.00</span></div>
     </div>
 
-    <div class="menu-panel" data-panel="iced" hidden>
-      <div class="menu-grid">
-        <div class="item"><div><h3>Cold Brew</h3><p>Steeped 18 hours, smooth and strong</p></div><span class="dots"></span><span class="price">$4.25</span></div>
-        <div class="item"><div><h3>Bayou Iced Latte <span class="tag">House fave</span></h3><p>Vanilla, cinnamon, sweet cream</p></div><span class="dots"></span><span class="price">$5.50</span></div>
-        <div class="item"><div><h3>Iced Mocha</h3><p>Espresso, chocolate, milk, whip</p></div><span class="dots"></span><span class="price">$5.25</span></div>
-        <div class="item"><div><h3>Frozen Coffee</h3><p>Blended, sweet and cold as it gets</p></div><span class="dots"></span><span class="price">$5.75</span></div>
-        <div class="item"><div><h3>Sweet Cream Cold Brew</h3><p>Cold brew under a cap of vanilla cream</p></div><span class="dots"></span><span class="price">$5.00</span></div>
-        <div class="item"><div><h3>Iced Café au Lait</h3><p>Chicory coffee over ice with milk</p></div><span class="dots"></span><span class="price">$4.25</span></div>
-      </div>
+    <div class="menu-panel board" data-panel="energy" hidden>
+      <h3>Energy refreshers</h3>
+      <div class="mrow hdr"><span></span><span class="p">Med</span><span class="p">Large</span></div>
+      <div class="mrow"><div><b>Baby Shark</b><small>Blue raspberry &amp; coconut</small></div><span class="p">5.00</span><span class="p">6.00</span></div>
+      <div class="mrow"><div><b>Creamsicle</b><small>Orange with vanilla cream</small></div><span class="p">5.50</span><span class="p">6.50</span></div>
+      <div class="mrow"><div><b>Bayou Peach</b><small>Peach &amp; strawberry</small></div><span class="p">5.00</span><span class="p">6.00</span></div>
+      <div class="mrow"><div><b>Cajun Colada</b><small>Coconut &amp; pineapple with cream</small></div><span class="p">5.50</span><span class="p">6.50</span></div>
+      <div class="mrow"><div><b>Create your own</b><small>Pick your flavors, we'll build it</small></div><span class="p"></span><span class="p"></span></div>
     </div>
 
-    <div class="menu-panel" data-panel="other" hidden>
-      <div class="menu-grid">
-        <div class="item"><div><h3>Hot Chocolate</h3><p>With whipped cream</p></div><span class="dots"></span><span class="price">$3.75</span></div>
-        <div class="item"><div><h3>Chai Latte</h3><p>Hot or iced</p></div><span class="dots"></span><span class="price">$4.75</span></div>
-        <div class="item"><div><h3>Sweet Tea</h3><p>Southern, of course</p></div><span class="dots"></span><span class="price">$2.50</span></div>
-        <div class="item"><div><h3>Strawberry Lemonade</h3><p>Fresh squeezed</p></div><span class="dots"></span><span class="price">$3.75</span></div>
-      </div>
+    <div class="menu-panel board" data-panel="addons" hidden>
+      <h3>Add-ons</h3>
+      <div class="mrow one"><div><b>Alternative Milk</b><small>Almond, oat or half &amp; half</small></div><span class="p">.75</span></div>
+      <div class="mrow one"><b>Extra Flavor</b><span class="p">.25</span></div>
+      <div class="mrow one"><b>Blended</b><span class="p">.75</span></div>
+      <div class="mrow one"><b>Cold Foam</b><span class="p">1.00</span></div>
+      <div class="mrow one"><b>Extra Shot</b><span class="p">.50</span></div>
+      <div class="mrow one"><div><b>Sweet Cream · Energy Shot</b><small>For refreshers</small></div><span class="p"></span></div>
     </div>
 
-    <div class="menu-panel" data-panel="eats" hidden>
-      <div class="menu-grid">
-        <div class="item"><div><h3>Beignets</h3><p>Three, under a mountain of powdered sugar</p></div><span class="dots"></span><span class="price">$4.50</span></div>
-        <div class="item"><div><h3>Breakfast Kolache</h3><p>Sausage and cheese</p></div><span class="dots"></span><span class="price">$3.50</span></div>
-        <div class="item"><div><h3>Blueberry Muffin</h3><p>Baked fresh</p></div><span class="dots"></span><span class="price">$3.25</span></div>
-        <div class="item"><div><h3>King Cake Slice</h3><p>In season</p></div><span class="dots"></span><span class="price">$4.00</span></div>
-      </div>
-    </div>
-
-    <p class="menu-note">Prices and items shown are a sample until the real menu is added.</p>
-  </div>
-</section>
-
-<section class="favs">
-  <div class="wrap">
-    <div class="head">
-      <div class="eyebrow">Regulars order these</div>
-      <h2>The house favorites.</h2>
-    </div>
-    <div class="cards">
-      <div class="card">
-        <div class="ph ph-a"><svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M14 22h30v18a12 12 0 0 1-12 12h-6a12 12 0 0 1-12-12z"/><path d="M44 28h4a6 6 0 0 1 0 12h-4"/><path d="M24 8c-3 4 3 6 0 10M32 8c-3 4 3 6 0 10"/></svg></div>
-        <div class="body"><h3>Praline Latte</h3><p>Brown sugar and pecan. Tastes like a praline from the corner store, in a cup.</p></div>
-      </div>
-      <div class="card">
-        <div class="ph ph-b"><svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 14h28l-4 42H22z"/><path d="M16 14h32"/><path d="M36 6l-4 8"/><path d="M22 30h20"/></svg></div>
-        <div class="body"><h3>Bayou Iced Latte</h3><p>Vanilla, cinnamon and sweet cream over ice. What you want when it's 95 and humid.</p></div>
-      </div>
-      <div class="card">
-        <div class="ph ph-c"><svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"><path d="M12 36c0-8 8-14 20-14s20 6 20 14-8 12-20 12-20-4-20-12z"/><path d="M20 30l2 2M30 28l2 2M40 30l2 2M26 38l2 2M36 38l2 2"/></svg></div>
-        <div class="body"><h3>Beignets</h3><p>Hot, fresh and buried in powdered sugar. Wear a dark shirt at your own risk.</p></div>
-      </div>
-    </div>
+    <p class="menu-note">Ask about our signature drinks and the seasonal menu.</p>
   </div>
 </section>
 
@@ -306,56 +275,54 @@
   <div class="wrap">
     <div class="head">
       <div class="eyebrow">The Coffee Truck</div>
-      <h2>We'll bring the coffee to you.</h2>
-      <p>Here's where the truck is parked this week. Follow us on Facebook for same-day updates.</p>
+      <h2>Where's the truck this week?</h2>
+      <p>A new stop every weekday morning. Follow <a href="https://www.instagram.com/thelouisianabean/">@thelouisianabean</a> for the new schedule each week.</p>
     </div>
     <div class="truck-grid">
-      <div class="sched" id="sched">
-        <div class="row" data-day="1"><b>Monday</b><span>Main Street, by the courthouse</span><span class="time">6:30 to 10</span></div>
-        <div class="row" data-day="2"><b>Tuesday</b><span>Industrial park, front gate</span><span class="time">6 to 9:30</span></div>
-        <div class="row" data-day="3"><b>Wednesday</b><span>Back at the shop all day</span><span class="time">&nbsp;</span></div>
-        <div class="row" data-day="4"><b>Thursday</b><span>Hospital parking lot</span><span class="time">6:30 to 10</span></div>
-        <div class="row" data-day="5"><b>Friday</b><span>High school, game nights</span><span class="time">5 to 9 pm</span></div>
-        <div class="row" data-day="6"><b>Saturday</b><span>Farmers market</span><span class="time">7 to noon</span></div>
-        <div class="row" data-day="0"><b>Sunday</b><span>Private events</span><span class="time">Booked</span></div>
+      <div>
+        <div class="truck-photo"><img src="img/truck.jpg" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
+        <div class="book-card" id="book-truck">
+          <h3>Bring the truck to you</h3>
+          <p>Offices, schools, makers markets, church events, weddings and parties. Tell us the date and place and we'll pull up and keep the line moving.</p>
+          <a class="btn btn-dark" href="https://www.facebook.com/thelouisianabean">Message us on Facebook</a>
+        </div>
       </div>
-      <div class="truck-side">
-        <svg class="truck-art" viewBox="0 0 440 200" aria-hidden="true">
-          <ellipse cx="220" cy="186" rx="200" ry="8" fill="rgba(0,0,0,.2)"/>
-          <rect x="30" y="40" width="270" height="130" rx="18" fill="#f6ead8"/>
-          <path d="M300 80h70l40 44v46H300z" fill="#f6ead8"/>
-          <path d="M312 92h52l30 32h-82z" fill="#2f5d50" opacity=".55"/>
-          <rect x="56" y="62" width="150" height="64" rx="8" fill="#2b1a12"/>
-          <path d="M50 62h162l-12-18H62z" fill="#d9a441"/>
-          <text x="131" y="92" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="18" fill="#f0c063">LOUISIANA</text>
-          <text x="131" y="114" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="14" letter-spacing="5" fill="#f6ead8">BEAN</text>
-          <rect x="228" y="62" width="54" height="86" rx="6" fill="#e3d2b6"/>
-          <rect x="30" y="140" width="380" height="10" fill="#d9a441"/>
-          <circle cx="100" cy="172" r="22" fill="#2b1a12"/><circle cx="100" cy="172" r="9" fill="#a89481"/>
-          <circle cx="340" cy="172" r="22" fill="#2b1a12"/><circle cx="340" cy="172" r="9" fill="#a89481"/>
-        </svg>
-        <h3>Book the truck for your event</h3>
-        <p>We pull up, set up, and keep the line moving.</p>
-        <ul>
-          <li>Weddings and showers</li>
-          <li>Office and jobsite mornings</li>
-          <li>School, church and ballgame events</li>
-          <li>Festivals and markets</li>
-        </ul>
-        <a class="btn btn-gold" href="#book">Ask about a date</a>
+      <div class="sched" id="sched">
+        <div class="top"><b>SCHEDULE</b><span>Week of Oct 13</span></div>
+        <div class="stop" data-date="2026-10-13">
+          <div class="when"><b>Tuesday</b><span>10/13 · 7:45 to 9:45 am</span></div>
+          <div class="where"><b>VieMed</b><span>625 Kaliste Saloom Rd, Lafayette</span><br><a href="https://maps.apple.com/?q=625+Kaliste+Saloom+Rd,+Lafayette,+LA+70508">Directions</a></div>
+        </div>
+        <div class="stop" data-date="2026-10-14">
+          <div class="when"><b>Wednesday</b><span>10/14 · 8:30 to 10 am</span></div>
+          <div class="where"><b>Cecil Picard Elementary</b><span>203 S Albert St, Maurice</span><br><a href="https://maps.apple.com/?q=203+S+Albert+St,+Maurice,+LA+70555">Directions</a></div>
+        </div>
+        <div class="stop" data-date="2026-10-15">
+          <div class="when"><b>Thursday</b><span>10/15 · 7:30 to 9:30 am</span></div>
+          <div class="where"><b>PHI Headquarters</b><span>2001 SE Evangeline Thrwy, Lafayette</span><br><a href="https://maps.apple.com/?q=2001+SE+Evangeline+Thruway,+Lafayette,+LA+70508">Directions</a></div>
+        </div>
+        <div class="stop" data-date="2026-10-16">
+          <div class="when"><b>Friday</b><span>10/16 · 7 to 9 am</span></div>
+          <div class="where"><b>Town Center Parkway</b><span>Next to 302 Town Center Pkwy, Lafayette</span><br><a href="https://maps.apple.com/?q=302+Town+Center+Pkwy,+Lafayette,+LA+70506">Directions</a></div>
+        </div>
+        <div class="stop" data-date="2026-10-17">
+          <div class="when"><b>Saturday</b><span>10/17 · 9 am to noon</span></div>
+          <div class="where"><b>Stuller Makers Market <span class="pub">Open to public</span></b><span>Stuller front lawn, 302 Rue Louis XIV, Lafayette</span><br><a href="https://maps.apple.com/?q=302+Rue+Louis+XIV,+Lafayette,+LA+70508">Directions</a></div>
+        </div>
+        <div class="foot">Some stops are private for that business. Plans change with the weather, so check <a href="https://www.facebook.com/thelouisianabean">Facebook</a> the morning of.</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="about" id="about">
-  <div class="wrap about-grid">
-    <div class="about-photo">Photo of the owners, the shop<br>or the truck goes here</div>
+<section class="crew" id="crew">
+  <div class="wrap crew-grid">
+    <div class="crew-photo"><img src="img/team.jpg" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
     <div>
-      <div class="eyebrow">Our Story</div>
-      <h2 style="font-size:clamp(2rem,4vw,2.7rem)">Small town coffee, made by people you know.</h2>
-      <p>Louisiana Bean started with a simple idea: our town deserved a good cup of coffee and a friendly place to drink it. What began as one espresso machine grew into a shop with its doors open every morning and a truck that goes wherever folks need it.</p>
-      <p>We know most of our regulars by name and by order. Come in once and we'll probably know yours too.</p>
+      <div class="eyebrow">Our Crew</div>
+      <h2 style="font-size:clamp(2rem,4vw,2.7rem)">Coffee made by people you know.</h2>
+      <p>The Louisiana Bean is a local, family-run coffee shop in Carencro with a truck that goes where Acadiana works, learns and shops.</p>
+      <p>Come in once and we'll probably remember your order the next time.</p>
       <p class="sig">See y'all in the morning.</p>
     </div>
   </div>
@@ -365,34 +332,24 @@
   <div class="wrap">
     <div class="head">
       <div class="eyebrow">Visit the shop</div>
-      <h2>Come sit a while.</h2>
+      <h2>Come see us in Carencro.</h2>
     </div>
     <div class="visit-grid">
       <div class="panel">
-        <h3>Hours</h3>
-        <table class="hours" id="hours">
-          <tr data-day="1"><td>Monday</td><td>6 am to 2 pm</td></tr>
-          <tr data-day="2"><td>Tuesday</td><td>6 am to 2 pm</td></tr>
-          <tr data-day="3"><td>Wednesday</td><td>6 am to 2 pm</td></tr>
-          <tr data-day="4"><td>Thursday</td><td>6 am to 2 pm</td></tr>
-          <tr data-day="5"><td>Friday</td><td>6 am to 2 pm</td></tr>
-          <tr data-day="6"><td>Saturday</td><td>7 am to 1 pm</td></tr>
-          <tr data-day="0"><td>Sunday</td><td>Closed</td></tr>
-        </table>
-        <div class="map" aria-label="Map placeholder"><div class="pin"></div></div>
+        <h3>The shop</h3>
+        <div class="todo">Shop address and hours go here.</div>
+        <div class="map"><iframe title="Map of Carencro, Louisiana" loading="lazy" src="https://maps.google.com/maps?q=Carencro,+LA&z=13&output=embed"></iframe></div>
       </div>
       <div class="panel">
-        <h3>Get in touch</h3>
+        <h3>Follow along</h3>
         <ul class="contact-list">
-          <li><b>Address</b><span>123 Main Street, Your Town, LA</span></li>
-          <li><b>Phone</b><span>(000) 000-0000</span></li>
-          <li><b>Email</b><span>hello@louisianabean.com</span></li>
+          <li><b>Instagram</b><a href="https://www.instagram.com/thelouisianabean/">@thelouisianabean</a></li>
+          <li><b>Facebook</b><a href="https://www.facebook.com/thelouisianabean">facebook.com/thelouisianabean</a></li>
+          <li><b>Truck</b><span>New schedule posted every week</span></li>
         </ul>
-        <p style="margin:0 0 4px;font-weight:600">Follow along</p>
         <div class="socials">
-          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4 1.8-4 4.3V10H7v4h3v8h4v-8h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/></svg></a>
-          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
-          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.4 2.4 1.9 4 4 4.3v3.4c-1.5 0-2.8-.4-4-1.2V16a6 6 0 1 1-6-6v3.4a2.6 2.6 0 1 0 2.6 2.6V3z"/></svg></a>
+          <a href="https://www.facebook.com/thelouisianabean" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4 1.8-4 4.3V10H7v4h3v8h4v-8h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/></svg></a>
+          <a href="https://www.instagram.com/thelouisianabean/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
         </div>
       </div>
     </div>
@@ -404,35 +361,36 @@
     <div class="book">
       <h2>Want the truck at your event?</h2>
       <p>Tell us the date, the place and about how many people. We'll get back to you with what it takes.</p>
-      <a class="btn btn-gold" href="tel:0000000000">Call us</a>
-      <a class="btn btn-ghost" href="mailto:hello@louisianabean.com?subject=Coffee%20truck%20booking" style="margin-left:8px">Send an email</a>
+      <div class="cta">
+        <a class="btn btn-main" href="https://www.facebook.com/thelouisianabean">Message us on Facebook</a>
+        <a class="btn btn-ghost" href="https://www.instagram.com/thelouisianabean/">DM on Instagram</a>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <a class="brand" href="#top">
-      <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><ellipse cx="16" cy="16" rx="10" ry="13" transform="rotate(30 16 16)" fill="#d9a441"/><path d="M10 25c6-5 6-13 12-18" stroke="#2b1a12" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
-      Louisiana Bean
-    </a>
-    <span>Coffee shop &amp; coffee truck · Louisiana</span>
-    <span>&copy; <span id="yr"></span> Louisiana Bean</span>
+    <a class="brand" href="#top"><svg class="logo"><use href="#sign"/></svg>The Louisiana Bean</a>
+    <span>Coffee shop in Carencro · Coffee truck around Lafayette</span>
+    <span>&copy; <span id="yr"></span> The Louisiana Bean</span>
   </div>
 </footer>
 
 <script>
-  // menu tabs
   document.querySelectorAll('.menu-tabs button').forEach(function(b){
     b.addEventListener('click',function(){
       document.querySelectorAll('.menu-tabs button').forEach(function(x){x.setAttribute('aria-selected', x===b ? 'true':'false')});
       document.querySelectorAll('.menu-panel').forEach(function(p){p.hidden = p.dataset.panel !== b.dataset.tab});
     });
   });
-  // highlight today in the truck schedule and the hours
-  var d = new Date().getDay();
-  document.querySelectorAll('#sched .row, #hours tr').forEach(function(r){ if (+r.dataset.day === d) r.classList.add('today') });
-  document.getElementById('yr').textContent = new Date().getFullYear();
+  // today's truck stop stands out, past ones fade
+  var n = new Date(), today = n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');
+  document.querySelectorAll('.stop').forEach(function(s){
+    if (s.dataset.date === today) s.classList.add('today');
+    else if (s.dataset.date < today) s.classList.add('past');
+  });
+  document.getElementById('yr').textContent = n.getFullYear();
 </script>
 </body>
 </html>
