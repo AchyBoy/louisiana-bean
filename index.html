@@ -109,6 +109,8 @@
   .stop.today{background:#fbf1e4;box-shadow:inset 4px 0 0 var(--caramel)}
   .stop.today .when b::after{content:"Today";font-size:.6rem;letter-spacing:.06em;background:var(--caramel);color:var(--roast);border-radius:5px;padding:2px 6px;margin-left:6px;vertical-align:2px}
   .stop.past{opacity:.5}
+  .stop .where .pub{color:#fff;font-size:.66rem}
+  .stop.today .when b::after{display:table;margin:5px 0 2px;vertical-align:0}
   .pub{font-family:Inter,sans-serif;display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:#2f5d50;color:#fff;border-radius:5px;padding:2px 6px;margin-left:6px;vertical-align:2px}
   .sched .foot{padding:14px 20px;background:#fbf6ef;font-size:.88rem;color:var(--muted)}
   .sched .foot a{color:var(--ring);font-weight:600}
@@ -134,6 +136,8 @@
   .contact-list li{display:flex;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line);align-items:center}
   .contact-list li b{min-width:96px}
   .contact-list a{color:var(--ring);font-weight:600;text-decoration:none}
+  .visit-grid>*{min-width:0}
+  .contact-list a,.contact-list span{overflow-wrap:anywhere}
   .socials{display:flex;gap:10px;margin-top:6px}
   .socials a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--roast);color:var(--crema);text-decoration:none}
   .socials svg{width:20px;height:20px}
@@ -337,8 +341,13 @@
     <div class="visit-grid">
       <div class="panel">
         <h3>The shop</h3>
-        <div class="todo">Shop address and hours go here.</div>
-        <div class="map"><iframe title="Map of Carencro, Louisiana" loading="lazy" src="https://maps.google.com/maps?q=Carencro,+LA&z=13&output=embed"></iframe></div>
+        <ul class="contact-list">
+          <li><b>Address</b><a href="https://maps.apple.com/?q=The+Louisiana+Bean&address=208+E+St+Peter+St,+Carencro,+LA+70520">208 E St Peter St<br>Carencro, LA 70520</a></li>
+          <li><b>Phone</b><a href="tel:+13378963241">(337) 896-3241</a></li>
+          <li><b>Hours</b><a href="https://www.google.com/maps/search/?api=1&query=The+Louisiana+Bean+208+E+St+Peter+St+Carencro+LA">See today's hours</a></li>
+        </ul>
+        <a class="btn btn-dark" href="https://maps.apple.com/?q=The+Louisiana+Bean&address=208+E+St+Peter+St,+Carencro,+LA+70520">Get directions</a>
+        <div class="map"><iframe title="Map to The Louisiana Bean, 208 E St Peter St, Carencro" loading="lazy" src="https://maps.google.com/maps?q=The+Louisiana+Bean,+208+E+St+Peter+St,+Carencro,+LA+70520&z=16&output=embed"></iframe></div>
       </div>
       <div class="panel">
         <h3>Follow along</h3>
@@ -362,8 +371,8 @@
       <h2>Want the truck at your event?</h2>
       <p>Tell us the date, the place and about how many people. We'll get back to you with what it takes.</p>
       <div class="cta">
-        <a class="btn btn-main" href="https://www.facebook.com/thelouisianabean">Message us on Facebook</a>
-        <a class="btn btn-ghost" href="https://www.instagram.com/thelouisianabean/">DM on Instagram</a>
+        <a class="btn btn-main" href="tel:+13378963241">Call (337) 896-3241</a>
+        <a class="btn btn-ghost" href="https://www.facebook.com/thelouisianabean">Message us on Facebook</a>
       </div>
     </div>
   </div>
@@ -372,7 +381,7 @@
 <footer>
   <div class="wrap">
     <a class="brand" href="#top"><svg class="logo"><use href="#sign"/></svg>The Louisiana Bean</a>
-    <span>Coffee shop in Carencro · Coffee truck around Lafayette</span>
+    <span>208 E St Peter St, Carencro, LA · <a href="tel:+13378963241">(337) 896-3241</a></span>
     <span>&copy; <span id="yr"></span> The Louisiana Bean</span>
   </div>
 </footer>
