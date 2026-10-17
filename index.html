@@ -13,7 +13,7 @@
    fetched with a unique URL (never cached); if it names a newer build than this
    page, hop once to ?v=<build>, a URL the cache has never seen. No popup.
    deploy.sh stamps BUILD, version.json and every asset ?v= together. */
-var BUILD='20261016-193024';
+var BUILD='20261016-194527';
 (function(){
   if(location.protocol==='file:') return;
   window.__freshPending=true;   /* the visit tracker waits on this so a hop counts once */
@@ -83,7 +83,7 @@ var BUILD='20261016-193024';
 
   /* ---------- hero ---------- */
   .hero{position:relative;color:var(--crema);min-height:min(84svh,680px);display:flex;align-items:center;overflow:hidden;background:#1a110c}
-  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261016-193024) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
+  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261016-194527) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
   @media (min-width:821px){
     .hero-bg{top:auto;aspect-ratio:910/412;background-size:100% auto;background-position:center bottom;
       -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 38%);mask-image:linear-gradient(180deg,transparent 0,#000 38%)}
@@ -326,11 +326,25 @@ var BUILD='20261016-193024';
   .dice{font:inherit;border:0;background:none;cursor:pointer;font-size:.8rem;letter-spacing:0;text-transform:none;color:var(--ring);font-weight:700;padding:0}
   .drinkchips{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;margin:0 0 12px;scrollbar-width:none}
   .drinkchips .chip{flex:none;font-size:.82rem;padding:7px 12px}
-  .padwrap{position:relative;border-radius:12px;overflow:hidden;border:1.5px solid var(--line)}
-  #pad{display:block;width:100%;height:84px;background:#c49a6c;touch-action:none;cursor:crosshair}
+  .padwrap{position:relative;border-radius:16px;overflow:hidden;border:1.5px solid var(--line);width:min(250px,72vw);margin:0 auto}
+  #pad{display:block;width:100%;aspect-ratio:1;background:#c49a6c;touch-action:none;cursor:crosshair}
   .padclear{position:absolute;right:6px;top:6px;font:inherit;font-size:.72rem;font-weight:700;border:0;border-radius:8px;padding:4px 8px;background:rgba(35,24,18,.7);color:#fff;cursor:pointer}
-  .padhint{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-family:Caveat,cursive;font-size:1.2rem;color:rgba(35,24,18,.45);pointer-events:none}
+  .padhint{position:absolute;left:0;right:0;text-align:center;top:50%;transform:translateY(-50%);font-family:Caveat,cursive;font-size:1.2rem;color:rgba(35,24,18,.45);pointer-events:none}
   .signerr{color:#b3261e;font-size:.88rem;font-weight:600;min-height:1.2em;margin:6px 0 0}
+
+  /* floating cup shortcut: one of their white cups with the logo */
+  .cupfab{position:fixed;right:14px;bottom:14px;z-index:56;width:68px;height:84px;border:0;background:none;padding:0;cursor:pointer;
+    filter:drop-shadow(0 10px 16px rgba(35,24,18,.35));transform:translateY(130%);opacity:0;transition:transform .45s cubic-bezier(.2,1.3,.4,1),opacity .3s}
+  .cupfab.show{transform:none;opacity:1}
+  .cupfab.show svg{animation:bob 3.2s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(-4px) rotate(-2deg)}}
+  .cupfab .steam path{stroke-dasharray:5 7;animation:steam 2.6s linear infinite}
+  @keyframes steam{to{stroke-dashoffset:-24}}
+  .cupfab .bubble{position:absolute;right:74px;top:26px;white-space:nowrap;background:var(--roast);color:var(--crema);font:700 .8rem Inter,sans-serif;padding:8px 12px;border-radius:12px;
+    opacity:0;transform:translateX(8px);transition:all .3s;pointer-events:none}
+  .cupfab .bubble::after{content:"";position:absolute;right:-6px;top:50%;margin-top:-6px;border:6px solid transparent;border-right:0;border-left-color:var(--roast)}
+  .cupfab.talk .bubble,.cupfab:hover .bubble{opacity:1;transform:none}
+  .cupfab:active svg{transform:scale(.92)}
 
   /* music button (bottom left; the demo tag owns bottom right) */
   .music-btn{position:fixed;left:12px;bottom:12px;z-index:55;display:flex;align-items:center;gap:9px;padding:9px 15px 9px 13px;border-radius:999px;
@@ -393,7 +407,17 @@ var BUILD='20261016-193024';
   </defs>
 </svg>
 
-<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261016-193024" type="audio/mp4"></audio>
+<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261016-194527" type="audio/mp4"></audio>
+<button class="cupfab" id="cupFab" type="button" aria-label="Sign a cup on the Cup Wall">
+  <span class="bubble">Sign a cup ✍️</span>
+  <svg viewBox="0 0 68 84" width="68" height="84" aria-hidden="true">
+    <g class="steam" fill="none" stroke="#c98a4b" stroke-width="2.4" stroke-linecap="round" opacity=".8"><path d="M28 14c-4-5 4-7 0-12"/><path d="M38 14c-4-5 4-7 0-12"/></g>
+    <path d="M12 26h44l-6 52a5 5 0 0 1-5 4H23a5 5 0 0 1-5-4z" fill="#fff" stroke="#e3d6c6" stroke-width="1.2"/>
+    <rect x="9" y="19" width="50" height="9" rx="4.5" fill="#2b1d15"/>
+    <path d="M14 19c2-5 8-7 20-7s18 2 20 7z" fill="#3a2a20"/>
+    <use href="#sign" x="17" y="38" width="34" height="34"/>
+  </svg>
+</button>
 <button class="music-btn" id="musicbtn" type="button" aria-pressed="false" aria-label="Play music"><span class="eq"><i></i><i></i><i></i></span><span id="musiclbl">Play music</span></button>
 
 <nav id="top">
@@ -424,7 +448,7 @@ var BUILD='20261016-193024';
 
 <header class="hero">
   <div class="hero-bg" role="img" aria-label="The Louisiana Bean coffee truck at sunset"></div>
-  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261016-193024" aria-hidden="true"><source src="img/pour.mp4?v=20261016-193024" type="video/mp4"></video></div>
+  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261016-194527" aria-hidden="true"><source src="img/pour.mp4?v=20261016-194527" type="video/mp4"></video></div>
   <svg class="garland" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true" id="garland"></svg>
   <svg class="lights" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true" id="lights"></svg>
   <div class="leaves" id="leaves" aria-hidden="true"></div>
@@ -527,7 +551,7 @@ var BUILD='20261016-193024';
     </div>
     <div class="truck-grid">
       <div class="rv">
-        <div class="truck-photo"><img src="img/truck.jpg?v=20261016-193024" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
+        <div class="truck-photo"><img src="img/truck.jpg?v=20261016-194527" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
         <div class="book-card">
           <h3>Bring the truck to you</h3>
           <p>Offices, schools, makers markets, church events, weddings and parties. Tell us the date and place and we'll pull up and keep the line moving.</p>
@@ -546,7 +570,7 @@ var BUILD='20261016-193024';
 <section class="crew" id="crew">
   <svg class="stain" style="width:300px;height:300px;right:-100px;bottom:-40px;opacity:.3;transform:rotate(-30deg)"><use href="#stain"/></svg>
   <div class="wrap crew-grid">
-    <div class="crew-photo rv"><img src="img/team.jpg?v=20261016-193024" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
+    <div class="crew-photo rv"><img src="img/team.jpg?v=20261016-194527" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
     <div class="rv">
       <div class="eyebrow">Our Crew</div>
       <h2 style="font-size:clamp(2rem,4vw,2.7rem)">Coffee made by people you know.</h2>
@@ -842,15 +866,19 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()
     var nm=esc(c.name||'');
     var fs = nm.length>12?14:nm.length>8?16:19;
     var fit = (c.name||'').length*fs*0.66 > 76 ? ' textLength="76" lengthAdjust="spacingAndGlyphs"' : '';
-    var doodle='';
-    if(c.doodle&&c.doodle.length){
-      doodle='<g clip-path="url(#slv'+c.id+')">'+c.doodle.map(function(s){
-        return '<polyline points="'+s.map(function(p){return (24+p[0]*0.72).toFixed(1)+','+(100+p[1]*0.3).toFixed(1)}).join(' ')+'" fill="none" stroke="#3a2214" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>';
+    var doodle='', dd=c.doodle, sq=dd&&!Array.isArray(dd)&&dd.v===2, strokes=sq?dd.s:dd;
+    if(strokes&&strokes.length){
+      // square pad (v2) -> a 40x40 patch on the sleeve; old wide pad -> the whole sleeve
+      var X=sq?function(p){return 40+p[0]*0.40}:function(p){return 24+p[0]*0.72};
+      var Y=sq?function(p){return 95+p[1]*0.40}:function(p){return 100+p[1]*0.3};
+      doodle='<g clip-path="url(#slv'+c.id+')">'+strokes.map(function(s){
+        if(s.length===1) s=[s[0],[s[0][0]+1,s[0][1]]];
+        return '<polyline points="'+s.map(function(p){return X(p).toFixed(1)+','+Y(p).toFixed(1)}).join(' ')+'" fill="none" stroke="#3a2214" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>';
       }).join('')+'</g>';
     }
     return ''+
       '<defs><clipPath id="cp'+c.id+'"><path d="M19 34 L101 34 L92 160 Q91 166 85 166 L35 166 Q29 166 28 160 Z"/></clipPath>'+
-      '<clipPath id="slv'+c.id+'"><path d="M23 98 L97 98 L94.6 132 L25.4 132 Z"/></clipPath>'+
+      '<clipPath id="slv'+c.id+'"><path d="M23.3 94 L96.7 94 L93.8 136 L26.2 136 Z"/></clipPath>'+
       '<linearGradient id="gl'+c.id+'" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".25" stop-color="#fff" stop-opacity=".05"/><stop offset=".8" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".3"/></linearGradient></defs>'+
       '<rect x="66" y="2" width="7" height="60" rx="3" fill="#2f5d50" transform="rotate(14 70 30)"/>'+
       '<g clip-path="url(#cp'+c.id+')">'+
@@ -863,10 +891,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()
       '</g>'+
       '<path d="M19 34 L101 34 L92 160 Q91 166 85 166 L35 166 Q29 166 28 160 Z" fill="none" stroke="rgba(120,95,75,.45)" stroke-width="1.5"/>'+
       '<rect x="15" y="29" width="90" height="7" rx="3.5" fill="#fff" stroke="rgba(120,95,75,.45)" stroke-width="1.2"/>'+
-      '<path d="M23 98 L97 98 L94.6 132 L25.4 132 Z" fill="#c49a6c"/>'+
-      '<path d="M23 98 L97 98" stroke="#a87d50" stroke-width="1"/><path d="M25.4 132 L94.6 132" stroke="#a87d50" stroke-width="1"/>'+
+      '<path d="M23.3 94 L96.7 94 L93.8 136 L26.2 136 Z" fill="#c49a6c"/>'+
+      '<path d="M23.3 94 L96.7 94" stroke="#a87d50" stroke-width="1"/><path d="M26.2 136 L93.8 136" stroke="#a87d50" stroke-width="1"/>'+
       doodle+
-      '<text x="60" y="88" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="'+fs+'"'+fit+' fill="#151515" transform="rotate(-6 60 84)">'+nm+'</text>'+
+      '<text x="60" y="86" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="'+fs+'"'+fit+' fill="#151515" transform="rotate(-6 60 84)">'+nm+'</text>'+
       (c.season&&STICK[c.season]?'<circle cx="98" cy="48" r="11" fill="#fff" stroke="rgba(0,0,0,.08)"/><text x="98" y="53" text-anchor="middle" font-size="13">'+STICK[c.season]+'</text>':'');
   }
   function when(at){ var d=new Date(at), s=(Date.now()-d)/1000;
@@ -917,7 +945,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()
   var draft={drink:null,name:'',note:'',doodle:[]}, pi=Math.floor(Math.random()*PROMPTS.length);
   var nameEl=document.getElementById('signName'), noteEl=document.getElementById('signNote');
   function season(){ var m=document.documentElement.className.match(/s-(mardigras|christmas|fall)/); return m?m[1]:null }
-  function preview(){ document.getElementById('signPreview').innerHTML=cupSVG({id:'pv',name:draft.name||'Your name',drink:draft.drink,doodle:draft.doodle,season:season()}) }
+  function preview(){ document.getElementById('signPreview').innerHTML=cupSVG({id:'pv',name:draft.name||'Your name',drink:draft.drink,doodle:{v:2,s:draft.doodle},season:season()}) }
   document.getElementById('signDrinks').innerHTML=DRINKS.map(function(d){return '<button type="button" class="chip" data-d="'+esc(d)+'" aria-pressed="false">'+esc(d)+'</button>'}).join('');
   document.getElementById('signDrinks').addEventListener('click',function(e){
     var c=e.target.closest('.chip'); if(!c) return;
@@ -955,6 +983,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()
   }
   function closeSign(){ sheetEl.classList.remove('on'); scrimEl.classList.remove('on') }
   document.getElementById('signOpen').addEventListener('click',openSign);
+  window.openCupSign=openSign;
   document.getElementById('signCancel').addEventListener('click',closeSign);
   scrimEl.addEventListener('click',closeSign);
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeSign() });
@@ -968,7 +997,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()
     if(!draft.note){ err.textContent='Add a little note, even just "hey!"'; noteEl.focus(); return; }
     busy=true; this.textContent='Putting it up…';
     var btn=this;
-    fetch(API,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({name:draft.name,drink:draft.drink,note:draft.note,doodle:draft.doodle,vid:vid,season:season()})})
+    fetch(API,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({name:draft.name,drink:draft.drink,note:draft.note,doodle:draft.doodle.length?{v:2,s:draft.doodle}:null,vid:vid,season:season()})})
       .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||'Something went wrong'); return j }) })
       .then(function(j){
         try{ localStorage.setItem('cups-name',draft.name) }catch(e){}
@@ -984,6 +1013,23 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()
       .then(function(){ busy=false; btn.textContent='☕ Put my cup on the wall' });
   });
   addEventListener('resize',function(){ if(sheetEl.classList.contains('on')) sizePad() });
+})();
+
+/* floating cup: shows once you scroll past the top, hides while a sheet is open
+   or when the wall's own Sign button is on screen; tap = sign a cup */
+(function(){
+  var fab=document.getElementById('cupFab'), signBtn=document.getElementById('signOpen'), talked=false, signVisible=false;
+  function upd(){
+    var sheetOpen=document.querySelector('.sheet.on');
+    var on = scrollY>innerHeight*0.6 && !sheetOpen && !signVisible;
+    fab.classList.toggle('show',on);
+    if(on&&!talked){ talked=true; setTimeout(function(){ fab.classList.add('talk'); setTimeout(function(){fab.classList.remove('talk')},3500) },700) }
+  }
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es){ signVisible=es[0].isIntersecting; upd() }).observe(signBtn);
+  addEventListener('scroll',upd,{passive:true});
+  new MutationObserver(upd).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+  fab.addEventListener('click',function(){ if(window.track) track('nav','Floating cup'); window.openCupSign&&openCupSign(); });
+  upd();
 })();
 
 /* the van drives by as you scroll */
