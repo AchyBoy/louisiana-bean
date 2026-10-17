@@ -13,7 +13,7 @@
    fetched with a unique URL (never cached); if it names a newer build than this
    page, hop once to ?v=<build>, a URL the cache has never seen. No popup.
    deploy.sh stamps BUILD, version.json and every asset ?v= together. */
-var BUILD='20261016-181608';
+var BUILD='20261016-193024';
 (function(){
   if(location.protocol==='file:') return;
   window.__freshPending=true;   /* the visit tracker waits on this so a hop counts once */
@@ -29,7 +29,7 @@ var BUILD='20261016-181608';
 <script src="/visits/t.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&family=Rubik:wght@800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&family=Rubik:wght@800&family=Dancing+Script:wght@700&family=Permanent+Marker&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --roast:#231812; --roast-2:#36241a; --crema:#f6ece0; --cream:#fffaf4;
@@ -83,7 +83,7 @@ var BUILD='20261016-181608';
 
   /* ---------- hero ---------- */
   .hero{position:relative;color:var(--crema);min-height:min(84svh,680px);display:flex;align-items:center;overflow:hidden;background:#1a110c}
-  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261016-181608) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
+  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261016-193024) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
   @media (min-width:821px){
     .hero-bg{top:auto;aspect-ratio:910/412;background-size:100% auto;background-position:center bottom;
       -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 38%);mask-image:linear-gradient(180deg,transparent 0,#000 38%)}
@@ -285,6 +285,53 @@ var BUILD='20261016-181608';
   .reveal-on .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
   .reveal-on .rv.in{opacity:1;transform:none}
 
+  /* ---------- the cup wall ---------- */
+  .cups-sec{background:linear-gradient(#fffaf4,#f8efe3)}
+  .cups-top{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:28px;position:relative;z-index:1}
+  .cups-top .head{margin:0}
+  .cupcount{font-family:'Permanent Marker',cursive;font-size:1.25rem;color:var(--ring);transform:rotate(-3deg);display:inline-block;margin-top:6px}
+  .wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:34px 0;position:relative;z-index:1}
+  .cupcard{display:flex;flex-direction:column;align-items:center;padding:0 10px;position:relative}
+  .cupcard svg.cup{width:112px;height:150px;transform-origin:50% 100%;filter:drop-shadow(0 8px 10px rgba(35,24,18,.16));transition:transform .2s}
+  .cupcard:hover svg.cup{transform:rotate(0deg) translateY(-3px) !important}
+  .plank{align-self:stretch;height:12px;margin:0 -10px;background:linear-gradient(#a8744a,#7b4f30);box-shadow:0 4px 8px rgba(35,24,18,.18),inset 0 1px 0 rgba(255,255,255,.25)}
+  .cupcard .dk{margin-top:12px;font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center}
+  .cupcard .nt{margin-top:4px;font-family:Caveat,cursive;font-size:1.22rem;line-height:1.15;color:var(--ink);text-align:center;max-width:200px;overflow-wrap:anywhere}
+  .cupcard .ft{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:.75rem;color:var(--muted)}
+  .clink{font:inherit;font-size:.82rem;font-weight:700;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:4px 11px;cursor:pointer;color:var(--ink);display:inline-flex;gap:5px;align-items:center}
+  .clink.did{border-color:var(--caramel);background:#fbf1e4}
+  .clink .g{display:inline-block}
+  .clink.anim .g{animation:clink .55s ease}
+  @keyframes clink{0%{transform:rotate(0) scale(1)}30%{transform:rotate(-25deg) scale(1.35)}60%{transform:rotate(18deg) scale(1.2)}100%{transform:none}}
+  .cupcard.newcup{animation:slidein .7s cubic-bezier(.2,1.3,.4,1) both}
+  @keyframes slidein{from{opacity:0;transform:translateX(-40px) rotate(-12deg)}to{opacity:1;transform:none}}
+  .cupcard.newcup svg.cup{animation:wiggle 1s .6s ease-in-out}
+  @keyframes wiggle{20%{transform:rotate(7deg)}40%{transform:rotate(-6deg)}60%{transform:rotate(4deg)}80%{transform:rotate(-2deg)}}
+  .wall-empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:30px 0;font-family:Caveat,cursive;font-size:1.5rem}
+  .more{display:block;margin:30px auto 0}
+  .more[hidden]{display:none}
+  .toast{position:fixed;left:50%;bottom:70px;transform:translate(-50%,30px);opacity:0;z-index:70;background:var(--roast);color:var(--crema);padding:12px 18px;border-radius:14px;font-weight:600;font-size:.92rem;box-shadow:0 12px 30px rgba(0,0,0,.3);transition:all .3s;max-width:90vw;text-align:center}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+
+  /* sign-a-cup sheet */
+  .sign-grid{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:start}
+  .sign-grid svg.cup{width:120px;height:160px}
+  @media (max-width:420px){ .sign-grid{grid-template-columns:90px 1fr} .sign-grid svg.cup{width:90px;height:120px} }
+  .field{display:block;margin:0 0 12px}
+  .field>span{display:flex;justify-content:space-between;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-weight:700}
+  .field input,.field textarea{width:100%;font:inherit;font-size:16px;padding:11px 13px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--ink);resize:none}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--caramel)}
+  .field input.marker{font-family:'Permanent Marker',cursive;font-size:18px}
+  .field textarea{font-family:Caveat,cursive;font-size:21px;line-height:1.2;height:86px}
+  .dice{font:inherit;border:0;background:none;cursor:pointer;font-size:.8rem;letter-spacing:0;text-transform:none;color:var(--ring);font-weight:700;padding:0}
+  .drinkchips{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;margin:0 0 12px;scrollbar-width:none}
+  .drinkchips .chip{flex:none;font-size:.82rem;padding:7px 12px}
+  .padwrap{position:relative;border-radius:12px;overflow:hidden;border:1.5px solid var(--line)}
+  #pad{display:block;width:100%;height:84px;background:#c49a6c;touch-action:none;cursor:crosshair}
+  .padclear{position:absolute;right:6px;top:6px;font:inherit;font-size:.72rem;font-weight:700;border:0;border-radius:8px;padding:4px 8px;background:rgba(35,24,18,.7);color:#fff;cursor:pointer}
+  .padhint{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-family:Caveat,cursive;font-size:1.2rem;color:rgba(35,24,18,.45);pointer-events:none}
+  .signerr{color:#b3261e;font-size:.88rem;font-weight:600;min-height:1.2em;margin:6px 0 0}
+
   /* music button (bottom left; the demo tag owns bottom right) */
   .music-btn{position:fixed;left:12px;bottom:12px;z-index:55;display:flex;align-items:center;gap:9px;padding:9px 15px 9px 13px;border-radius:999px;
     border:1px solid rgba(226,170,108,.45);background:rgba(35,24,18,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
@@ -346,7 +393,7 @@ var BUILD='20261016-181608';
   </defs>
 </svg>
 
-<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261016-181608" type="audio/mp4"></audio>
+<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261016-193024" type="audio/mp4"></audio>
 <button class="music-btn" id="musicbtn" type="button" aria-pressed="false" aria-label="Play music"><span class="eq"><i></i><i></i><i></i></span><span id="musiclbl">Play music</span></button>
 
 <nav id="top">
@@ -359,6 +406,7 @@ var BUILD='20261016-181608';
       <li><a href="#menu">Menu</a></li>
       <li><a href="#truck">Truck Schedule</a></li>
       <li><a href="#crew">Our Crew</a></li>
+      <li><a href="#cups">Cup Wall</a></li>
       <li><a href="#visit">Visit</a></li>
     </ul>
     <a class="btn btn-main" href="#truck" style="padding:9px 16px;font-size:.88rem">Find the truck</a>
@@ -376,7 +424,7 @@ var BUILD='20261016-181608';
 
 <header class="hero">
   <div class="hero-bg" role="img" aria-label="The Louisiana Bean coffee truck at sunset"></div>
-  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261016-181608" aria-hidden="true"><source src="img/pour.mp4?v=20261016-181608" type="video/mp4"></video></div>
+  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261016-193024" aria-hidden="true"><source src="img/pour.mp4?v=20261016-193024" type="video/mp4"></video></div>
   <svg class="garland" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true" id="garland"></svg>
   <svg class="lights" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true" id="lights"></svg>
   <div class="leaves" id="leaves" aria-hidden="true"></div>
@@ -479,7 +527,7 @@ var BUILD='20261016-181608';
     </div>
     <div class="truck-grid">
       <div class="rv">
-        <div class="truck-photo"><img src="img/truck.jpg?v=20261016-181608" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
+        <div class="truck-photo"><img src="img/truck.jpg?v=20261016-193024" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
         <div class="book-card">
           <h3>Bring the truck to you</h3>
           <p>Offices, schools, makers markets, church events, weddings and parties. Tell us the date and place and we'll pull up and keep the line moving.</p>
@@ -498,7 +546,7 @@ var BUILD='20261016-181608';
 <section class="crew" id="crew">
   <svg class="stain" style="width:300px;height:300px;right:-100px;bottom:-40px;opacity:.3;transform:rotate(-30deg)"><use href="#stain"/></svg>
   <div class="wrap crew-grid">
-    <div class="crew-photo rv"><img src="img/team.jpg?v=20261016-181608" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
+    <div class="crew-photo rv"><img src="img/team.jpg?v=20261016-193024" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
     <div class="rv">
       <div class="eyebrow">Our Crew</div>
       <h2 style="font-size:clamp(2rem,4vw,2.7rem)">Coffee made by people you know.</h2>
@@ -506,6 +554,23 @@ var BUILD='20261016-181608';
       <p>Come in once and we'll probably remember your order the next time.</p>
       <p class="sig">See y'all in the morning.</p>
     </div>
+  </div>
+</section>
+
+<section class="cups-sec" id="cups">
+  <svg class="stain" style="width:240px;height:240px;left:-70px;top:60px;opacity:.25"><use href="#stain"/></svg>
+  <div class="wrap">
+    <div class="cups-top">
+      <div class="head rv">
+        <div class="eyebrow">The Cup Wall</div>
+        <h2>Leave your mark.</h2>
+        <p>Sign a cup like the barista would. Tell us your usual, where you caught the truck, or just say hey.</p>
+        <span class="cupcount" id="cupCount"></span>
+      </div>
+      <button class="btn btn-main rv" id="signOpen">✍️ Sign a cup</button>
+    </div>
+    <div class="wall" id="wall"><div class="wall-empty">Loading the cups…</div></div>
+    <button class="btn btn-dark more" id="moreCups" hidden>Show more cups</button>
   </div>
 </section>
 
@@ -564,6 +629,29 @@ var BUILD='20261016-181608';
 </footer>
 
 <div class="scrim" id="scrim"></div>
+<div class="sheet" id="signSheet" role="dialog" aria-modal="true" aria-labelledby="signTitle">
+  <div class="grab"></div>
+  <h3 id="signTitle">Sign a cup</h3>
+  <p class="sub">It goes up on the wall for everybody to see.</p>
+  <div class="opt" style="margin-top:4px"><b>What'd you get?</b></div>
+  <div class="drinkchips" id="signDrinks"></div>
+  <div class="sign-grid">
+    <svg class="cup" id="signPreview" viewBox="0 0 120 170" aria-hidden="true"></svg>
+    <div>
+      <label class="field"><span>Name on the cup</span><input class="marker" id="signName" maxlength="24" autocomplete="given-name" placeholder="Your name"></label>
+      <label class="field"><span>Your note <button type="button" class="dice" id="signDice">🎲 new idea</button></span><textarea id="signNote" maxlength="160"></textarea></label>
+    </div>
+  </div>
+  <div class="field"><span>Doodle on the sleeve <small style="text-transform:none;letter-spacing:0;font-weight:500">(optional)</small></span>
+    <div class="padwrap"><canvas id="pad"></canvas><span class="padhint" id="padHint">draw with your finger ✏️</span><button type="button" class="padclear" id="padClear">Clear</button></div>
+  </div>
+  <p class="signerr" id="signErr"></p>
+  <button class="btn btn-main" id="signGo" style="width:100%;justify-content:center;margin-top:6px">☕ Put my cup on the wall</button>
+  <button class="btn" id="signCancel" style="width:100%;justify-content:center;margin-top:8px;background:none;color:var(--muted)">Cancel</button>
+</div>
+<div class="toast" id="toast"></div>
+
+
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetName">
   <div class="grab"></div>
   <h3 id="sheetName"></h3>
@@ -729,6 +817,173 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()
   v.addEventListener('playing', show, {once:true});
   v.addEventListener('error', function(){ box.hidden=true; document.documentElement.classList.remove('has-vid'); }, true);
   var p=v.play(); if (p && p.catch) p.catch(function(){ /* blocked: the truck photo stays */ });
+})();
+
+/* ===== The Cup Wall ===== */
+(function(){
+  var API='https://api.jobhubgo.com/api/cups/louisiana-bean';
+  var COLORS={
+    'Drip Coffee':['#3b2416'], 'Americano':['#2e1a10'], 'Hot / Iced Latte':['#c8925c','#f3e3cc'],
+    'Mocha / White Mocha':['#6b3d24','#f0dcc2'], 'Caramel Macchiato':['#b5713a','#f3e3cc','#e0a24f'],
+    'Cool Bean':['#b98b62','#fff7ec'], 'Espresso Shot':['#2a160c'], 'Baby Shark':['#3aa0e0','#e9f6ff'],
+    'Creamsicle':['#f39a3c','#fff3e0'], 'Bayou Peach':['#f4a07a','#ffe6da'], 'Cajun Colada':['#f1dc92','#fffbe9'],
+    'Create Your Own':['#9b6bd1','#f4ecff'], 'Something else':['#a0784f','#f3e3cc']
+  };
+  var DRINKS=COFFEE.map(function(d){return d.n}).concat(REFRESH.map(function(d){return d.n})).concat(['Something else']);
+  var PROMPTS=["What's your usual?","Where'd you catch the truck?","Best thing that happened today?","Who'd you bring with you?","What got you out of bed this morning?","Say hey to the crew!","Your go-to order when it's 95 out?","What were you celebrating?"];
+  var STICK={mardigras:'🎭',christmas:'🎄',fall:'🍂'};
+  var vid=(function(){try{return localStorage.getItem('trk-vid')||localStorage.getItem('cups-vid')||(function(){var v=Math.random().toString(36).slice(2,10);localStorage.setItem('cups-vid',v);return v})()}catch(e){return null}})();
+  var cheered={}; try{ JSON.parse(localStorage.getItem('cups-cheered')||'[]').forEach(function(i){cheered[i]=1}) }catch(e){}
+  var all=[], shownN=24;
+
+  function hash(n){ n=Number(n)||0; return ((n*9301+49297)%233280)/233280 }
+  function cupSVG(c){
+    var col=COLORS[c.drink]||COLORS['Something else'], liq=col[0], top=col[1]||null, swirl=col[2]||null;
+    var nm=esc(c.name||'');
+    var fs = nm.length>12?14:nm.length>8?16:19;
+    var fit = (c.name||'').length*fs*0.66 > 76 ? ' textLength="76" lengthAdjust="spacingAndGlyphs"' : '';
+    var doodle='';
+    if(c.doodle&&c.doodle.length){
+      doodle='<g clip-path="url(#slv'+c.id+')">'+c.doodle.map(function(s){
+        return '<polyline points="'+s.map(function(p){return (24+p[0]*0.72).toFixed(1)+','+(100+p[1]*0.3).toFixed(1)}).join(' ')+'" fill="none" stroke="#3a2214" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>';
+      }).join('')+'</g>';
+    }
+    return ''+
+      '<defs><clipPath id="cp'+c.id+'"><path d="M19 34 L101 34 L92 160 Q91 166 85 166 L35 166 Q29 166 28 160 Z"/></clipPath>'+
+      '<clipPath id="slv'+c.id+'"><path d="M23 98 L97 98 L94.6 132 L25.4 132 Z"/></clipPath>'+
+      '<linearGradient id="gl'+c.id+'" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".25" stop-color="#fff" stop-opacity=".05"/><stop offset=".8" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".3"/></linearGradient></defs>'+
+      '<rect x="66" y="2" width="7" height="60" rx="3" fill="#2f5d50" transform="rotate(14 70 30)"/>'+
+      '<g clip-path="url(#cp'+c.id+')">'+
+        '<rect x="0" y="50" width="120" height="120" fill="'+liq+'"/>'+
+        (top?'<rect x="0" y="46" width="120" height="16" fill="'+top+'"/><path d="M0 62 Q20 70 40 62 T80 62 T120 62 V70 H0Z" fill="'+top+'" opacity=".7"/>':'')+
+        (swirl?'<path d="M30 80 Q50 95 40 120 T60 150" stroke="'+swirl+'" stroke-width="5" fill="none" opacity=".7"/>':'')+
+        '<rect x="34" y="66" width="18" height="16" rx="4" fill="#fff" opacity=".28" transform="rotate(-12 43 74)"/>'+
+        '<rect x="62" y="74" width="16" height="15" rx="4" fill="#fff" opacity=".22" transform="rotate(16 70 81)"/>'+
+        '<rect x="0" y="0" width="120" height="170" fill="url(#gl'+c.id+')"/>'+
+      '</g>'+
+      '<path d="M19 34 L101 34 L92 160 Q91 166 85 166 L35 166 Q29 166 28 160 Z" fill="none" stroke="rgba(120,95,75,.45)" stroke-width="1.5"/>'+
+      '<rect x="15" y="29" width="90" height="7" rx="3.5" fill="#fff" stroke="rgba(120,95,75,.45)" stroke-width="1.2"/>'+
+      '<path d="M23 98 L97 98 L94.6 132 L25.4 132 Z" fill="#c49a6c"/>'+
+      '<path d="M23 98 L97 98" stroke="#a87d50" stroke-width="1"/><path d="M25.4 132 L94.6 132" stroke="#a87d50" stroke-width="1"/>'+
+      doodle+
+      '<text x="60" y="88" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="'+fs+'"'+fit+' fill="#151515" transform="rotate(-6 60 84)">'+nm+'</text>'+
+      (c.season&&STICK[c.season]?'<circle cx="98" cy="48" r="11" fill="#fff" stroke="rgba(0,0,0,.08)"/><text x="98" y="53" text-anchor="middle" font-size="13">'+STICK[c.season]+'</text>':'');
+  }
+  function when(at){ var d=new Date(at), s=(Date.now()-d)/1000;
+    if(s<3600) return Math.max(1,Math.floor(s/60))+' min ago'; if(s<86400) return Math.floor(s/3600)+' hr ago';
+    return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) }
+  function card(c,isNew){
+    var tilt=((hash(c.id)-.5)*12).toFixed(1);
+    return '<div class="cupcard'+(isNew?' newcup':'')+'" data-id="'+c.id+'">'+
+      '<svg class="cup" viewBox="0 0 120 170" style="transform:rotate('+tilt+'deg)" role="img" aria-label="'+esc(c.name)+'’s '+esc(c.drink||'cup')+'">'+cupSVG(c)+'</svg>'+
+      '<div class="plank"></div>'+
+      (c.drink?'<div class="dk">'+esc(c.drink)+'</div>':'')+
+      '<div class="nt">“'+esc(c.note)+'”</div>'+
+      '<div class="ft"><span>'+when(c.at)+'</span><button class="clink'+(cheered[c.id]?' did':'')+'" data-id="'+c.id+'" aria-label="Cheers"><span class="g">🥂</span><span class="n">'+(c.cheers||'')+'</span></button></div>'+
+    '</div>';
+  }
+  function paint(newId){
+    var w=document.getElementById('wall');
+    if(!all.length){ w.innerHTML='<div class="wall-empty">No cups yet. Be the first to sign one! ☕</div>'; }
+    else w.innerHTML=all.slice(0,shownN).map(function(c){return card(c,c.id===newId)}).join('');
+    document.getElementById('moreCups').hidden = all.length<=shownN;
+    var n=all.length; document.getElementById('cupCount').textContent = n ? n+(n===1?' cup signed':' cups signed') : '';
+  }
+  function load(){
+    fetch(API,{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){ all=j.cups||[]; paint() })
+      .catch(function(){ document.getElementById('wall').innerHTML='<div class="wall-empty">The cups are hiding. Try again in a bit.</div>' });
+  }
+  load();
+  document.getElementById('moreCups').addEventListener('click',function(){ shownN+=24; paint() });
+
+  function toast(t){ var el=document.getElementById('toast'); el.textContent=t; el.classList.add('on'); clearTimeout(toast.t); toast.t=setTimeout(function(){el.classList.remove('on')},3800) }
+
+  // cheers
+  document.getElementById('wall').addEventListener('click',function(e){
+    var b=e.target.closest('.clink'); if(!b) return;
+    var id=+b.dataset.id;
+    b.classList.remove('anim'); void b.offsetWidth; b.classList.add('anim');
+    if(cheered[id]) return;
+    cheered[id]=1; b.classList.add('did');
+    var n=b.querySelector('.n'); n.textContent=(+n.textContent||0)+1;
+    try{ localStorage.setItem('cups-cheered',JSON.stringify(Object.keys(cheered))) }catch(e){}
+    var c=all.filter(function(x){return x.id===id})[0]; if(c) c.cheers=(c.cheers||0)+1;
+    fetch(API+'/'+id+'/cheers',{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({vid:vid})}).catch(function(){});
+    if(window.track) track('cheers', c?c.name:id);
+  });
+
+  // ---- the sign sheet ----
+  var sheetEl=document.getElementById('signSheet'), scrimEl=document.getElementById('scrim');
+  var draft={drink:null,name:'',note:'',doodle:[]}, pi=Math.floor(Math.random()*PROMPTS.length);
+  var nameEl=document.getElementById('signName'), noteEl=document.getElementById('signNote');
+  function season(){ var m=document.documentElement.className.match(/s-(mardigras|christmas|fall)/); return m?m[1]:null }
+  function preview(){ document.getElementById('signPreview').innerHTML=cupSVG({id:'pv',name:draft.name||'Your name',drink:draft.drink,doodle:draft.doodle,season:season()}) }
+  document.getElementById('signDrinks').innerHTML=DRINKS.map(function(d){return '<button type="button" class="chip" data-d="'+esc(d)+'" aria-pressed="false">'+esc(d)+'</button>'}).join('');
+  document.getElementById('signDrinks').addEventListener('click',function(e){
+    var c=e.target.closest('.chip'); if(!c) return;
+    draft.drink=c.dataset.d;
+    this.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false')});
+    preview();
+  });
+  function prompt(){ noteEl.placeholder=PROMPTS[pi%PROMPTS.length] }
+  document.getElementById('signDice').addEventListener('click',function(){ pi++; prompt(); noteEl.focus({preventScroll:true}) });
+  nameEl.addEventListener('input',function(){ draft.name=nameEl.value; preview() });
+  noteEl.addEventListener('input',function(){ draft.note=noteEl.value });
+
+  // doodle pad: strokes in a 0..100 box
+  var pad=document.getElementById('pad'), ctx=pad.getContext('2d'), drawing=null;
+  function sizePad(){ var r=pad.getBoundingClientRect(), d=window.devicePixelRatio||1; pad.width=r.width*d; pad.height=r.height*d; redraw() }
+  function redraw(){
+    var d=window.devicePixelRatio||1; ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,pad.width,pad.height);
+    ctx.strokeStyle='#3a2214'; ctx.lineWidth=3*d; ctx.lineCap='round'; ctx.lineJoin='round';
+    draft.doodle.forEach(function(s){ ctx.beginPath(); s.forEach(function(p,i){ var x=p[0]/100*pad.width, y=p[1]/100*pad.height; i?ctx.lineTo(x,y):ctx.moveTo(x,y) }); if(s.length===1) ctx.lineTo(s[0][0]/100*pad.width+.1,s[0][1]/100*pad.height); ctx.stroke() });
+    document.getElementById('padHint').style.display=draft.doodle.length?'none':'';
+  }
+  function pt(e){ var r=pad.getBoundingClientRect(); return [Math.round(Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100))), Math.round(Math.max(0,Math.min(100,(e.clientY-r.top)/r.height*100)))] }
+  pad.addEventListener('pointerdown',function(e){ e.preventDefault(); pad.setPointerCapture(e.pointerId); drawing=[pt(e)]; draft.doodle.push(drawing); redraw() });
+  pad.addEventListener('pointermove',function(e){ if(!drawing) return; var p=pt(e), l=drawing[drawing.length-1]; if(Math.abs(p[0]-l[0])+Math.abs(p[1]-l[1])<2) return; if(drawing.length<400) drawing.push(p); redraw() });
+  function endStroke(){ if(drawing){ drawing=null; preview() } }
+  pad.addEventListener('pointerup',endStroke); pad.addEventListener('pointercancel',endStroke);
+  document.getElementById('padClear').addEventListener('click',function(){ draft.doodle=[]; redraw(); preview() });
+
+  function openSign(){
+    document.getElementById('signErr').textContent='';
+    try{ if(!draft.name) { draft.name=localStorage.getItem('cups-name')||''; nameEl.value=draft.name } }catch(e){}
+    prompt(); preview();
+    scrimEl.classList.add('on'); sheetEl.classList.add('on');
+    setTimeout(sizePad,60);
+  }
+  function closeSign(){ sheetEl.classList.remove('on'); scrimEl.classList.remove('on') }
+  document.getElementById('signOpen').addEventListener('click',openSign);
+  document.getElementById('signCancel').addEventListener('click',closeSign);
+  scrimEl.addEventListener('click',closeSign);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeSign() });
+
+  var busy=false;
+  document.getElementById('signGo').addEventListener('click',function(){
+    if(busy) return;
+    var err=document.getElementById('signErr');
+    draft.name=nameEl.value.trim(); draft.note=noteEl.value.trim();
+    if(!draft.name){ err.textContent='Write your name on the cup ✍️'; nameEl.focus(); return; }
+    if(!draft.note){ err.textContent='Add a little note, even just "hey!"'; noteEl.focus(); return; }
+    busy=true; this.textContent='Putting it up…';
+    var btn=this;
+    fetch(API,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({name:draft.name,drink:draft.drink,note:draft.note,doodle:draft.doodle,vid:vid,season:season()})})
+      .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||'Something went wrong'); return j }) })
+      .then(function(j){
+        try{ localStorage.setItem('cups-name',draft.name) }catch(e){}
+        if(window.track) track('cup', (draft.drink||'cup')+(j.held?' (held)':''));
+        closeSign();
+        noteEl.value=''; draft.note=''; draft.doodle=[]; redraw();
+        if(j.held){ toast('Thanks! Your cup will go up once the crew takes a look ☕'); return; }
+        all.unshift(j.cup); paint(j.cup.id);
+        document.getElementById('cups').scrollIntoView({behavior:'smooth',block:'start'});
+        toast('Your cup is on the wall! ☕');
+      })
+      .catch(function(e){ err.textContent=e.message||'Something went wrong, try again' })
+      .then(function(){ busy=false; btn.textContent='☕ Put my cup on the wall' });
+  });
+  addEventListener('resize',function(){ if(sheetEl.classList.contains('on')) sizePad() });
 })();
 
 /* the van drives by as you scroll */
