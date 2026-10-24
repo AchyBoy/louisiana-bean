@@ -9,7 +9,7 @@
 /* Always fresh (website profile): if version.json names a newer build than this page, hop once
    to ?v=<build>. A Home Screen app is rarely reloaded, so this also runs every time it comes back
    on screen. deploy.sh stamps BUILD here and in index.html together. */
-var BUILD='20261024-151029';
+var BUILD='20261024-151621';
 (function(){
   if(location.protocol==='file:') return;
   function check(){
@@ -82,6 +82,7 @@ var BUILD='20261024-151029';
   a.act{display:block;text-align:center;text-decoration:none}
   .txt{display:block;text-align:center;margin-top:8px;padding:11px;border-radius:12px;border:1.5px solid var(--ok);color:var(--ok);font-weight:700;text-decoration:none}
   .done .txt{display:none}
+  .txt.sent{border-color:var(--line);color:var(--muted);font-weight:600;font-size:.92rem}
 </style>
 </head>
 <body>
@@ -127,6 +128,7 @@ function smsHref(o){
   var msg='Hi '+o.name+', your order #'+o.num+' is ready at The Louisiana Bean! ☕';
   return 'sms:'+num+(isIOS?'&':'?')+'body='+encodeURIComponent(msg);
 }
+function clock(ts){return new Date(ts).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/Chicago'})}
 function ago(ts){var m=Math.round((Date.now()-ts)/60000); return m<1?'just now':m+' min ago'}
 function paint(){
   var h='', fresh={};
@@ -142,7 +144,9 @@ function paint(){
       +(o.status==='new'&&o.phone
           ? '<a class="act" data-id="'+esc(o.id)+'" data-st="new" href="'+esc(smsHref(o))+'">Mark ready · text '+esc(o.name)+'</a>'
           : '<button class="act" type="button" data-id="'+esc(o.id)+'" data-st="'+esc(o.status)+'">'+(o.status==='new'?'Mark ready':'Picked up')+'</button>')
-      +(o.status==='ready'&&o.phone?'<a class="txt" href="'+esc(smsHref(o))+'">💬 Text '+esc(o.name)+' it\'s ready</a>':'')
+      +(o.status==='ready'&&o.phone?(o.texted
+          ? '<a class="txt sent" data-text="'+esc(o.id)+'" href="'+esc(smsHref(o))+'">✓ Texted '+esc(o.name)+' at '+clock(o.texted)+' · send again</a>'
+          : '<a class="txt" data-text="'+esc(o.id)+'" href="'+esc(smsHref(o))+'">💬 Text '+esc(o.name)+' it\'s ready</a>'):'')
       +'</article>';
   });
   document.getElementById('list').innerHTML=h;
@@ -150,14 +154,21 @@ function paint(){
 }
 function load(){ return api('/orders').then(function(j){ orders=j.orders||[]; paint(); }).catch(function(){ if(seen===null){document.getElementById('list').innerHTML='<div class="empty"><b>Can\'t reach the order server</b>Check the connection, it retries by itself.</div>'} }); }
 document.getElementById('list').addEventListener('click',function(e){
+  var t=e.target.closest('[data-text]');
+  if(t){ markTexted(t.dataset.text); return; }
   var b=e.target.closest('.act'); if(!b) return;
   var next=b.dataset.st==='new'?'ready':'done', isLink=b.tagName==='A';
   orders.forEach(function(o){ if(o.id===b.dataset.id) o.status=next });
-  if(isLink) setTimeout(paint,300); else paint();
+  if(isLink){ markTexted(b.dataset.id,true); } else paint();
   // Mark ready with a phone is a real sms: link, so the tap itself opens the shop's Messages
   // with the text written (free, from their own number); we only record the status here.
   post('/orders/'+b.dataset.id+'/status',{status:next}).catch(load);
 });
+function markTexted(id,deferPaint){
+  orders.forEach(function(o){ if(o.id===id) o.texted=Date.now() });
+  setTimeout(paint,deferPaint?300:150);   // let the Messages link open first
+  post('/orders/'+id+'/texted').catch(function(){});
+}
 document.getElementById('sample').addEventListener('click',function(){
   var names=['Danielle','Marcus','Tre','Brooke','Kayla','Jude'];
   post('/orders',{name:names[Math.floor(Math.random()*names.length)],items:[{n:'Caramel Macchiato',d:'Large, Oat milk, extra shot',q:1},{n:'Bayou Peach',d:'Medium',q:1}],total:14.62,
