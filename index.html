@@ -13,7 +13,7 @@
    fetched with a unique URL (never cached); if it names a newer build than this
    page, hop once to ?v=<build>, a URL the cache has never seen. No popup.
    deploy.sh stamps BUILD, version.json and every asset ?v= together. */
-var BUILD='20261024-143411';
+var BUILD='20261024-144845';
 (function(){
   if(location.protocol==='file:') return;
   window.__freshPending=true;   /* the visit tracker waits on this so a hop counts once */
@@ -84,7 +84,7 @@ var BUILD='20261024-143411';
 
   /* ---------- hero ---------- */
   .hero{position:relative;color:var(--crema);min-height:min(84svh,680px);display:flex;align-items:center;overflow:hidden;background:#1a110c}
-  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261024-143411) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
+  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261024-144845) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
   @media (min-width:821px){
     .hero-bg{top:auto;aspect-ratio:910/412;background-size:100% auto;background-position:center bottom;
       -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 38%);mask-image:linear-gradient(180deg,transparent 0,#000 38%)}
@@ -436,7 +436,7 @@ var BUILD='20261024-143411';
   </defs>
 </svg>
 
-<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261024-143411" type="audio/mp4"></audio>
+<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261024-144845" type="audio/mp4"></audio>
 <button class="cupfab" id="cupFab" type="button" aria-label="Sign a cup on the Cup Wall">
   <span class="bubble">Sign a cup ✍️</span>
   <svg viewBox="0 0 68 84" width="68" height="84" aria-hidden="true">
@@ -482,7 +482,7 @@ var BUILD='20261024-143411';
 
 <header class="hero">
   <div class="hero-bg" role="img" aria-label="The Louisiana Bean coffee truck at sunset"></div>
-  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261024-143411" aria-hidden="true"><source src="img/pour.mp4?v=20261024-143411" type="video/mp4"></video></div>
+  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261024-144845" aria-hidden="true"><source src="img/pour.mp4?v=20261024-144845" type="video/mp4"></video></div>
   <svg class="garland" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true" id="garland"></svg>
   <svg class="lights" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true" id="lights"></svg>
   <div class="leaves" id="leaves" aria-hidden="true"></div>
@@ -586,7 +586,7 @@ var BUILD='20261024-143411';
     </div>
     <div class="truck-grid">
       <div class="rv">
-        <div class="truck-photo"><img src="img/truck.jpg?v=20261024-143411" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
+        <div class="truck-photo"><img src="img/truck.jpg?v=20261024-144845" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
         <div class="book-card">
           <h3>Bring the truck to you</h3>
           <p>Offices, schools, makers markets, church events, weddings and parties. Tell us the date and place and we'll pull up and keep the line moving.</p>
@@ -605,7 +605,7 @@ var BUILD='20261024-143411';
 <section class="crew" id="crew">
   <svg class="stain" style="width:300px;height:300px;right:-100px;bottom:-40px;opacity:.3;transform:rotate(-30deg)"><use href="#stain"/></svg>
   <div class="wrap crew-grid">
-    <div class="crew-photo rv"><img src="img/team.jpg?v=20261024-143411" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
+    <div class="crew-photo rv"><img src="img/team.jpg?v=20261024-144845" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
     <div class="rv">
       <div class="eyebrow">Our Crew</div>
       <h2 style="font-size:clamp(2rem,4vw,2.7rem)">Coffee made by people you know.</h2>
@@ -840,6 +840,7 @@ var ORDER_MODE='link';
 var ORDER_DEMO=true;
 var TAX_RATE=0.0995;     // Carencro sales tax, CHECK before going live
 var PICKUP_AT='the shop in Carencro';
+var ORDER_API='https://api.jobhubgo.com/api/order-demo/louisiana-bean';   // demo order server (jobhub-backend routes/orderDemo.ts)
 (function(){
   try{ var q=new URL(location.href).searchParams.get('opt'); var m=q==='2'?'here':q==='1'?'link':localStorage.getItem('lb-opt'); if(ORDER_DEMO&&(m==='here'||m==='link')) ORDER_MODE=m; }catch(e){}
   var navBtn=document.querySelector('nav [data-order]');
@@ -983,15 +984,18 @@ cartSheet.addEventListener('click',function(e){
   if(c==='place'){
     var nm=document.getElementById('oName'); if(!nm.value.trim()){ nm.focus(); nm.placeholder='We need a name for the cup'; return; }
     var sub=cartSub(), tax=Math.round(sub*TAX_RATE*100)/100;
-    var num=1040+Math.floor(Math.random()*60), at=readyAt();
-    var order={id:Date.now(),num:num,name:nm.value.trim().slice(0,30),phone:document.getElementById('oPhone').value.trim().slice(0,20),items:cart,total:Math.round((sub+tax)*100)/100,ready:at,placed:Date.now(),status:'new'};
-    try{ var all=JSON.parse(localStorage.getItem('lb-orders')||'[]'); all.push(order); localStorage.setItem('lb-orders',JSON.stringify(all.slice(-30))); }catch(e){}
-    try{ new BroadcastChannel('lb-orders').postMessage(order) }catch(e){}
-    if(window.track) track('order-placed', money(order.total));
-    cart=[]; cartSave(); cartPaint();
-    cartBody.innerHTML='<div class="center"><div class="done-ic">✓</div><h3 id="cartH">Order #'+num+' is in!</h3><p class="sub">Ready around <b>'+at+'</b> at '+esc(PICKUP_AT)+'. We\'ll text you when it\'s up.</p></div>'
-      +'<a class="btn btn-main" href="orders.html" target="_blank" rel="noopener" style="width:100%;justify-content:center;margin-top:12px">See what the shop sees</a>'
-      +'<button class="btn btn-dark" data-c="close" style="width:100%;justify-content:center;margin-top:10px">Done</button>';
+    var at=readyAt(), total=Math.round((sub+tax)*100)/100;
+    b.disabled=true; b.textContent='Placing your order…';
+    fetch(ORDER_API+'/orders',{method:'POST',body:JSON.stringify({name:nm.value.trim().slice(0,30),items:cart.map(function(i){return {n:i.n,d:i.d,q:i.q}}),total:total,ready:at})})
+      .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json() })
+      .then(function(j){
+        if(window.track) track('order-placed', money(total));
+        cart=[]; cartSave(); cartPaint();
+        cartBody.innerHTML='<div class="center"><div class="done-ic">✓</div><h3 id="cartH">Order #'+j.num+' is in!</h3><p class="sub">Ready around <b>'+at+'</b> at '+esc(PICKUP_AT)+'. We\'ll text you when it\'s up.</p></div>'
+          +'<a class="btn btn-main" href="orders.html" target="_blank" rel="noopener" style="width:100%;justify-content:center;margin-top:12px">See what the shop sees</a>'
+          +'<button class="btn btn-dark" data-c="close" style="width:100%;justify-content:center;margin-top:10px">Done</button>';
+      })
+      .catch(function(){ b.disabled=false; b.textContent='Try again · '+money(total); orderNote('Could not place the order, check your connection and try again.'); });
   }
 });
 document.getElementById('cartBar').addEventListener('click',openCart);

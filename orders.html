@@ -4,7 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Orders · The Louisiana Bean</title>
+<title>LB Orders</title>
+<link rel="manifest" href="/orders.webmanifest">
+<link rel="apple-touch-icon" href="/img/orders-icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="LB Orders">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#231812">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -12,7 +18,7 @@
   :root{--roast:#231812;--roast-2:#36241a;--crema:#f6ece0;--cream:#fffaf4;--caramel:#c98a4b;--caramel-2:#e2aa6c;--ink:#231812;--muted:#7a6656;--line:#eadccb;--ok:#2f7a4a}
   *{box-sizing:border-box}
   body{margin:0;font:16px/1.45 Inter,system-ui,sans-serif;background:var(--crema);color:var(--ink);min-height:100svh}
-  header{position:sticky;top:0;z-index:5;background:var(--roast);color:var(--crema);padding:14px 18px calc(14px);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  header{position:sticky;top:0;z-index:5;background:var(--roast);color:var(--crema);padding:calc(14px + env(safe-area-inset-top)) 18px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
   header h1{font:800 1.3rem Fraunces,serif;margin:0}
   header small{display:block;color:var(--caramel-2);font-size:.8rem;font-weight:600}
   .hb{display:flex;gap:8px;flex-wrap:wrap}
@@ -20,11 +26,22 @@
   .pill{border:1.5px solid rgba(246,236,224,.3);background:none;color:var(--crema);border-radius:999px;padding:8px 14px;font-weight:700;font-size:.88rem}
   .pill.on{background:var(--caramel);border-color:var(--caramel);color:var(--roast)}
   .demo{background:#fff3df;border-bottom:1px solid var(--line);color:var(--muted);font-size:.88rem;padding:10px 18px}
+  .alerts{margin:14px 18px 0;background:#fff;border:1.5px solid var(--caramel);border-radius:18px;padding:16px}
+  .alerts h2{font:800 1.1rem Fraunces,serif;margin:0 0 4px}
+  .alerts p{margin:0 0 10px;color:var(--muted);font-size:.92rem}
+  .alerts ol{margin:0 0 6px;padding-left:20px;color:var(--ink);font-size:.95rem}
+  .alerts ol li{padding:3px 0;border:0}
+  .alerts .row{display:flex;gap:8px;flex-wrap:wrap}
+  .big{border:0;border-radius:12px;padding:12px 16px;font-weight:700;background:var(--roast);color:var(--crema)}
+  .big.alt{background:none;border:1.5px solid var(--line);color:var(--ink)}
+  .msg{font-size:.88rem;color:var(--ok);font-weight:600;margin-top:8px}
+  .msg.err{color:#a33a2a}
   main{padding:18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;align-items:start}
-  .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 20px}
+  .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:50px 20px}
   .empty b{display:block;font:800 1.4rem Fraunces,serif;color:var(--ink);margin-bottom:6px}
   .o{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 6px 20px rgba(35,24,18,.07)}
-  .o.new{border-color:var(--caramel);box-shadow:0 0 0 4px rgba(201,138,75,.25),0 6px 20px rgba(35,24,18,.07);animation:pop .5s}
+  .o.new{border-color:var(--caramel);box-shadow:0 0 0 4px rgba(201,138,75,.25),0 6px 20px rgba(35,24,18,.07)}
+  .o.fresh{animation:pop .5s}
   .o.ready{border-color:var(--ok)}
   .o.done{opacity:.5}
   @keyframes pop{0%{transform:scale(.94)}60%{transform:scale(1.02)}100%{transform:none}}
@@ -35,10 +52,10 @@
   .done .tag{background:var(--line);color:var(--muted)}
   .who{font-weight:700;margin:2px 0 0}
   .when{color:var(--muted);font-size:.88rem;margin:0 0 10px}
-  ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-  li{padding:9px 0;border-bottom:1px solid var(--line)}
-  li b{display:block}
-  li small{color:var(--muted)}
+  .o ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+  .o li{padding:9px 0;border-bottom:1px solid var(--line)}
+  .o li b{display:block}
+  .o li small{color:var(--muted)}
   .tot{display:flex;justify-content:space-between;font-weight:700;margin:10px 0 12px}
   .act{width:100%;border:0;border-radius:12px;padding:13px;font-weight:700;background:var(--roast);color:var(--crema)}
   .ready .act{background:var(--ok);color:#fff}
@@ -49,20 +66,25 @@
 <header>
   <div><h1>Orders</h1><small>The Louisiana Bean · Carencro</small></div>
   <div class="hb">
-    <button class="pill" id="snd" type="button">🔈 Tap to turn on sound</button>
+    <button class="pill" id="snd" type="button">🔈 Sound on this screen</button>
     <button class="pill" id="sample" type="button">+ Sample order</button>
     <button class="pill" id="clear" type="button">Clear</button>
   </div>
 </header>
-<div class="demo">Demo: this is the screen on the shop's tablet. Orders placed on this device show up here and ding. When it's live, orders from every phone land here and the money goes straight to the shop through Stripe.</div>
-<main id="list"></main>
+<div class="demo">Demo: this is the shop's order screen. Orders placed on the website from any phone land here. No card is charged.</div>
+
+<section class="alerts" id="alerts" aria-live="polite"></section>
+<main id="list"><div class="empty"><b>Loading orders…</b></div></main>
 
 <script>
-var KEY='lb-orders', soundOn=false, ctx=null, seen={};
+var API='https://api.jobhubgo.com/api/order-demo/louisiana-bean';
+var soundOn=false, ctx=null, seen=null, orders=[];
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function money(n){return '$'+(+n).toFixed(2)}
-function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
-function save(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}
+function api(path,opt){return fetch(API+path,Object.assign({cache:'no-store'},opt||{})).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})}
+function post(path,data){return api(path,{method:'POST',body:JSON.stringify(data||{})})}
+
+/* ---------- sound on this screen ---------- */
 function ding(){
   if(!soundOn||!ctx) return;
   [880,1320].forEach(function(f,i){
@@ -72,42 +94,91 @@ function ding(){
     o.start(t); o.stop(t+.55);
   });
 }
-function ago(ts){var m=Math.round((Date.now()-ts)/60000); return m<1?'just now':m+' min ago'}
-function paint(){
-  var a=load().slice().reverse(), h='', fresh=false;
-  if(!a.length) h='<div class="empty"><b>No orders yet</b>Place one on the website, or tap + Sample order.</div>';
-  a.forEach(function(o){
-    if(!seen[o.id]){ seen[o.id]=1; if(o.status==='new'&&Date.now()-o.placed<60000) fresh=true; }
-    var lab={new:'New',ready:'Ready',done:'Picked up'}[o.status];
-    h+='<article class="o '+o.status+'"><div class="top"><span class="num">#'+o.num+'</span><span class="tag">'+lab+'</span></div>'
-      +'<p class="who">'+esc(o.name)+(o.phone?' · '+esc(o.phone):'')+'</p><p class="when">Placed '+ago(o.placed)+' · ready by '+esc(o.ready)+'</p><ul>'
-      +o.items.map(function(i){return '<li><b>'+(i.q>1?i.q+' × ':'')+esc(i.n)+'</b><small>'+esc(i.d||'')+'</small></li>'}).join('')
-      +'</ul><div class="tot"><span>Paid online</span><span>'+money(o.total)+'</span></div>'
-      +'<button class="act" type="button" data-id="'+o.id+'">'+(o.status==='new'?'Mark ready (texts the customer)':'Picked up')+'</button></article>';
-  });
-  document.getElementById('list').innerHTML=h;
-  if(fresh) ding();
-}
-document.getElementById('list').addEventListener('click',function(e){
-  var b=e.target.closest('.act'); if(!b) return;
-  var a=load(); a.forEach(function(o){ if(String(o.id)===b.dataset.id) o.status=o.status==='new'?'ready':'done'; }); save(a); paint();
-});
 document.getElementById('snd').addEventListener('click',function(){
   soundOn=!soundOn; if(soundOn&&!ctx){ try{ctx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){} }
-  this.textContent=soundOn?'🔊 Sound on':'🔈 Tap to turn on sound'; this.classList.toggle('on',soundOn); if(soundOn) ding();
+  this.textContent=soundOn?'🔊 Sound on':'🔈 Sound on this screen'; this.classList.toggle('on',soundOn); if(soundOn) ding();
+});
+
+/* ---------- the order list (from the server, so every device sees the same orders) ---------- */
+function ago(ts){var m=Math.round((Date.now()-ts)/60000); return m<1?'just now':m+' min ago'}
+function paint(){
+  var h='', fresh={};
+  if(!orders.length) h='<div class="empty"><b>No orders yet</b>Place one on the website, or tap + Sample order.</div>';
+  var first=seen===null; if(first) seen={};
+  orders.forEach(function(o){ if(!seen[o.id]){ seen[o.id]=1; if(!first&&o.status==='new') fresh[o.id]=1; } });
+  orders.forEach(function(o){
+    var lab={new:'New',ready:'Ready',done:'Picked up'}[o.status]||'New';
+    h+='<article class="o '+esc(o.status)+(fresh[o.id]?' fresh':'')+'"><div class="top"><span class="num">#'+o.num+'</span><span class="tag">'+lab+'</span></div>'
+      +'<p class="who">'+esc(o.name)+'</p><p class="when">Placed '+ago(o.placed)+(o.ready?' · ready by '+esc(o.ready):'')+'</p><ul>'
+      +o.items.map(function(i){return '<li><b>'+(i.q>1?i.q+' × ':'')+esc(i.n)+'</b><small>'+esc(i.d||'')+'</small></li>'}).join('')
+      +'</ul><div class="tot"><span>Paid online</span><span>'+money(o.total)+'</span></div>'
+      +'<button class="act" type="button" data-id="'+esc(o.id)+'" data-st="'+esc(o.status)+'">'+(o.status==='new'?'Mark ready (texts the customer)':'Picked up')+'</button></article>';
+  });
+  document.getElementById('list').innerHTML=h;
+  if(Object.keys(fresh).length) ding();
+}
+function load(){ return api('/orders').then(function(j){ orders=j.orders||[]; paint(); }).catch(function(){ if(seen===null){document.getElementById('list').innerHTML='<div class="empty"><b>Can\'t reach the order server</b>Check the connection, it retries by itself.</div>'} }); }
+document.getElementById('list').addEventListener('click',function(e){
+  var b=e.target.closest('.act'); if(!b) return;
+  var next=b.dataset.st==='new'?'ready':'done';
+  orders.forEach(function(o){ if(o.id===b.dataset.id) o.status=next }); paint();
+  post('/orders/'+b.dataset.id+'/status',{status:next}).catch(load);
 });
 document.getElementById('sample').addEventListener('click',function(){
   var names=['Danielle','Marcus','Tre','Brooke','Kayla','Jude'];
-  var o={id:Date.now(),num:1040+Math.floor(Math.random()*60),name:names[Math.floor(Math.random()*names.length)],phone:'',
-    items:[{n:'Caramel Macchiato',d:'Large, Oat milk, extra shot',q:1},{n:'Bayou Peach',d:'Medium',q:1}],
-    total:14.62,ready:new Date(Date.now()+600000).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/Chicago'}),placed:Date.now(),status:'new'};
-  var a=load(); a.push(o); save(a); paint();
+  post('/orders',{name:names[Math.floor(Math.random()*names.length)],items:[{n:'Caramel Macchiato',d:'Large, Oat milk, extra shot',q:1},{n:'Bayou Peach',d:'Medium',q:1}],total:14.62,
+    ready:new Date(Date.now()+600000).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/Chicago'})}).then(load);
 });
-document.getElementById('clear').addEventListener('click',function(){ save([]); seen={}; paint(); });
-addEventListener('storage',function(e){ if(e.key===KEY) paint(); });
-try{ new BroadcastChannel('lb-orders').onmessage=function(){ setTimeout(paint,50) } }catch(e){}
-load().forEach(function(o){seen[o.id]=1});
-paint(); setInterval(paint,30000);
+document.getElementById('clear').addEventListener('click',function(){ post('/clear').then(function(){ seen={}; load(); }); });
+navigator.serviceWorker&&navigator.serviceWorker.addEventListener('message',function(e){ if(e.data&&e.data.type==='order-push') load(); });
+document.addEventListener('visibilitychange',function(){ if(!document.hidden) load(); });
+load(); setInterval(load,5000);
+
+/* ---------- alerts on this phone (push notifications) ---------- */
+var box=document.getElementById('alerts');
+var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+var standalone=navigator.standalone===true||matchMedia('(display-mode: standalone)').matches;
+function b64(s){var p='='.repeat((4-s.length%4)%4),r=atob((s+p).replace(/-/g,'+').replace(/_/g,'/')),a=new Uint8Array(r.length);for(var i=0;i<r.length;i++)a[i]=r.charCodeAt(i);return a}
+function say(t,err){var m=box.querySelector('.msg'); if(m){m.textContent=t;m.classList.toggle('err',!!err)}}
+function view(state){
+  if(state==='ios-add'){
+    box.innerHTML='<h2>Get an alert on this iPhone for every order</h2><p>iPhones only allow alerts from apps on the Home Screen. One time setup:</p>'
+      +'<ol><li>Tap the <b>Share</b> button in Safari (the square with the arrow)</li><li>Tap <b>Add to Home Screen</b>, then <b>Add</b></li><li>Open <b>LB Orders</b> from your Home Screen</li><li>Tap <b>Turn on order alerts</b></li></ol>';
+  } else if(state==='unsupported'){
+    box.innerHTML='<h2>Order alerts</h2><p>This browser can\'t show order alerts. Try Safari on iPhone (from the Home Screen) or Chrome.</p>';
+  } else if(state==='blocked'){
+    box.innerHTML='<h2>Alerts are turned off</h2><p>Notifications were blocked for this app. Turn them on in Settings → Notifications → LB Orders, then come back.</p>';
+  } else if(state==='on'){
+    box.innerHTML='<h2>✅ Order alerts are on</h2><p>This phone will buzz for every new order, even when it\'s locked.</p><div class="row"><button class="big" id="testBtn" type="button">Send a test alert</button><button class="big alt" id="sampleBtn" type="button">Place a sample order</button></div><div class="msg"></div>';
+    document.getElementById('testBtn').onclick=function(){ say('Sending…'); post('/test').then(function(j){ say(j.sent?'Sent! Lock your phone to see it pop up.':'No phones are signed up yet.', !j.sent) }).catch(function(){ say('Could not send, try again.',true) }) };
+    document.getElementById('sampleBtn').onclick=function(){ say('Lock your phone now, the order comes in 5 seconds…'); setTimeout(function(){ document.getElementById('sample').click() },5000) };
+  } else {
+    box.innerHTML='<h2>Get an alert for every order</h2><p>This phone will buzz with every new order, even when it\'s locked.</p><button class="big" id="onBtn" type="button">Turn on order alerts</button><div class="msg"></div>';
+    document.getElementById('onBtn').onclick=turnOn;
+  }
+}
+function turnOn(){
+  say('Asking for permission…');
+  Notification.requestPermission().then(function(p){
+    if(p!=='granted') return view(p==='denied'?'blocked':'ask');
+    return navigator.serviceWorker.ready.then(function(reg){
+      return api('/vapid').then(function(k){ return reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64(k.publicKey)}) })
+        .then(function(sub){ return post('/subscribe',{subscription:sub.toJSON()}) })
+        .then(function(){ view('on') });
+    });
+  }).catch(function(e){ say('That didn\'t work ('+(e&&e.message||e)+'). Try again.',true) });
+}
+(function(){
+  var can='serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+  if(isIOS&&!standalone) return view('ios-add');
+  if(!can) return view('unsupported');
+  navigator.serviceWorker.register('/sw.js').then(function(reg){
+    if(Notification.permission==='denied') return view('blocked');
+    return reg.pushManager.getSubscription().then(function(s){
+      if(s&&Notification.permission==='granted'){ post('/subscribe',{subscription:s.toJSON()}).catch(function(){}); view('on') } else view('ask');
+    });
+  }).catch(function(){ view('unsupported') });
+})();
 </script>
 </body>
 </html>
