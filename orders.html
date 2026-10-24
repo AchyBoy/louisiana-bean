@@ -60,6 +60,9 @@
   .act{width:100%;border:0;border-radius:12px;padding:13px;font-weight:700;background:var(--roast);color:var(--crema)}
   .ready .act{background:var(--ok);color:#fff}
   .done .act{display:none}
+  a.act{display:block;text-align:center;text-decoration:none}
+  .txt{display:block;text-align:center;margin-top:8px;padding:11px;border-radius:12px;border:1.5px solid var(--ok);color:var(--ok);font-weight:700;text-decoration:none}
+  .done .txt{display:none}
 </style>
 </head>
 <body>
@@ -100,6 +103,11 @@ document.getElementById('snd').addEventListener('click',function(){
 });
 
 /* ---------- the order list (from the server, so every device sees the same orders) ---------- */
+function smsHref(o){
+  var num=o.phone.length===10?'+1'+o.phone:'+'+o.phone;
+  var msg='Hi '+o.name+', your order #'+o.num+' is ready at The Louisiana Bean! ☕';
+  return 'sms:'+num+(isIOS?'&':'?')+'body='+encodeURIComponent(msg);
+}
 function ago(ts){var m=Math.round((Date.now()-ts)/60000); return m<1?'just now':m+' min ago'}
 function paint(){
   var h='', fresh={};
@@ -112,7 +120,11 @@ function paint(){
       +'<p class="who">'+esc(o.name)+'</p><p class="when">Placed '+ago(o.placed)+(o.ready?' · ready by '+esc(o.ready):'')+'</p><ul>'
       +o.items.map(function(i){return '<li><b>'+(i.q>1?i.q+' × ':'')+esc(i.n)+'</b><small>'+esc(i.d||'')+'</small></li>'}).join('')
       +'</ul><div class="tot"><span>Paid online</span><span>'+money(o.total)+'</span></div>'
-      +'<button class="act" type="button" data-id="'+esc(o.id)+'" data-st="'+esc(o.status)+'">'+(o.status==='new'?(o.phone?'Mark ready · text '+esc(o.name):'Mark ready'):'Picked up')+'</button></article>';
+      +(o.status==='new'&&o.phone
+          ? '<a class="act" data-id="'+esc(o.id)+'" data-st="new" href="'+esc(smsHref(o))+'">Mark ready · text '+esc(o.name)+'</a>'
+          : '<button class="act" type="button" data-id="'+esc(o.id)+'" data-st="'+esc(o.status)+'">'+(o.status==='new'?'Mark ready':'Picked up')+'</button>')
+      +(o.status==='ready'&&o.phone?'<a class="txt" href="'+esc(smsHref(o))+'">💬 Text '+esc(o.name)+' it\'s ready</a>':'')
+      +'</article>';
   });
   document.getElementById('list').innerHTML=h;
   if(Object.keys(fresh).length) ding();
@@ -120,14 +132,11 @@ function paint(){
 function load(){ return api('/orders').then(function(j){ orders=j.orders||[]; paint(); }).catch(function(){ if(seen===null){document.getElementById('list').innerHTML='<div class="empty"><b>Can\'t reach the order server</b>Check the connection, it retries by itself.</div>'} }); }
 document.getElementById('list').addEventListener('click',function(e){
   var b=e.target.closest('.act'); if(!b) return;
-  var next=b.dataset.st==='new'?'ready':'done', hit=null;
-  orders.forEach(function(o){ if(o.id===b.dataset.id){ o.status=next; hit=o } }); paint();
-  // Ready → open the shop's own Messages with the text written; they tap send (free, from their number)
-  if(next==='ready'&&hit&&hit.phone){
-    var num=hit.phone.length===10?'+1'+hit.phone:'+'+hit.phone;
-    var msg='Hi '+hit.name+', your order #'+hit.num+' is ready at The Louisiana Bean! ☕';
-    location.href='sms:'+num+(isIOS?'&':'?')+'body='+encodeURIComponent(msg);
-  }
+  var next=b.dataset.st==='new'?'ready':'done', isLink=b.tagName==='A';
+  orders.forEach(function(o){ if(o.id===b.dataset.id) o.status=next });
+  if(isLink) setTimeout(paint,300); else paint();
+  // Mark ready with a phone is a real sms: link, so the tap itself opens the shop's Messages
+  // with the text written (free, from their own number); we only record the status here.
   post('/orders/'+b.dataset.id+'/status',{status:next}).catch(load);
 });
 document.getElementById('sample').addEventListener('click',function(){
