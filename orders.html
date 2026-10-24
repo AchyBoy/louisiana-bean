@@ -71,7 +71,7 @@
     <button class="pill" id="clear" type="button">Clear</button>
   </div>
 </header>
-<div class="demo">Demo: this is the shop's order screen. Orders placed on the website from any phone land here. No card is charged.</div>
+<div class="demo">Demo: this is the shop's order screen. Orders placed on the website from any phone land here. No card is charged, and Mark ready doesn't text anyone yet.</div>
 
 <section class="alerts" id="alerts" aria-live="polite"></section>
 <main id="list"><div class="empty"><b>Loading orders…</b></div></main>
@@ -112,7 +112,7 @@ function paint(){
       +'<p class="who">'+esc(o.name)+'</p><p class="when">Placed '+ago(o.placed)+(o.ready?' · ready by '+esc(o.ready):'')+'</p><ul>'
       +o.items.map(function(i){return '<li><b>'+(i.q>1?i.q+' × ':'')+esc(i.n)+'</b><small>'+esc(i.d||'')+'</small></li>'}).join('')
       +'</ul><div class="tot"><span>Paid online</span><span>'+money(o.total)+'</span></div>'
-      +'<button class="act" type="button" data-id="'+esc(o.id)+'" data-st="'+esc(o.status)+'">'+(o.status==='new'?'Mark ready (texts the customer)':'Picked up')+'</button></article>';
+      +'<button class="act" type="button" data-id="'+esc(o.id)+'" data-st="'+esc(o.status)+'">'+(o.status==='new'?'Mark ready':'Picked up')+'</button></article>';
   });
   document.getElementById('list').innerHTML=h;
   if(Object.keys(fresh).length) ding();
@@ -149,7 +149,7 @@ function view(state){
   } else if(state==='blocked'){
     box.innerHTML='<h2>Alerts are turned off</h2><p>Notifications were blocked for this app. Turn them on in Settings → Notifications → LB Orders, then come back.</p>';
   } else if(state==='on'){
-    box.innerHTML='<h2>✅ Order alerts are on</h2><p>This phone will buzz for every new order, even when it\'s locked.</p><div class="row"><button class="big" id="testBtn" type="button">Send a test alert</button><button class="big alt" id="sampleBtn" type="button">Place a sample order</button></div><div class="msg"></div>';
+    box.innerHTML='<h2>✅ Order alerts are on</h2><p>This phone will buzz for every new order, even when it\'s locked.</p><p><b>Make alerts stay on screen</b> until you swipe them: Settings → Notifications → LB Orders → Banner Style → <b>Persistent</b>. Turn on <b>Sounds</b> there too.</p><div class="row"><button class="big" id="testBtn" type="button">Send a test alert</button><button class="big alt" id="sampleBtn" type="button">Place a sample order</button></div><div class="msg"></div>';
     document.getElementById('testBtn').onclick=function(){ say('Sending…'); post('/test').then(function(j){ say(j.sent?'Sent! Lock your phone to see it pop up.':'No phones are signed up yet.', !j.sent) }).catch(function(){ say('Could not send, try again.',true) }) };
     document.getElementById('sampleBtn').onclick=function(){ say('Lock your phone now, the order comes in 5 seconds…'); setTimeout(function(){ document.getElementById('sample').click() },5000) };
   } else {
