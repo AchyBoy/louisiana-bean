@@ -71,7 +71,7 @@
     <button class="pill" id="clear" type="button">Clear</button>
   </div>
 </header>
-<div class="demo">Demo: this is the shop's order screen. Orders placed on the website from any phone land here. No card is charged, and Mark ready doesn't text anyone yet.</div>
+<div class="demo">Demo: this is the shop's order screen. Orders placed on the website from any phone land here. No card is charged. Mark ready opens Messages with the ready text to the customer's number, you tap send.</div>
 
 <section class="alerts" id="alerts" aria-live="polite"></section>
 <main id="list"><div class="empty"><b>Loading orders…</b></div></main>
@@ -112,7 +112,7 @@ function paint(){
       +'<p class="who">'+esc(o.name)+'</p><p class="when">Placed '+ago(o.placed)+(o.ready?' · ready by '+esc(o.ready):'')+'</p><ul>'
       +o.items.map(function(i){return '<li><b>'+(i.q>1?i.q+' × ':'')+esc(i.n)+'</b><small>'+esc(i.d||'')+'</small></li>'}).join('')
       +'</ul><div class="tot"><span>Paid online</span><span>'+money(o.total)+'</span></div>'
-      +'<button class="act" type="button" data-id="'+esc(o.id)+'" data-st="'+esc(o.status)+'">'+(o.status==='new'?'Mark ready':'Picked up')+'</button></article>';
+      +'<button class="act" type="button" data-id="'+esc(o.id)+'" data-st="'+esc(o.status)+'">'+(o.status==='new'?(o.phone?'Mark ready · text '+esc(o.name):'Mark ready'):'Picked up')+'</button></article>';
   });
   document.getElementById('list').innerHTML=h;
   if(Object.keys(fresh).length) ding();
@@ -120,8 +120,14 @@ function paint(){
 function load(){ return api('/orders').then(function(j){ orders=j.orders||[]; paint(); }).catch(function(){ if(seen===null){document.getElementById('list').innerHTML='<div class="empty"><b>Can\'t reach the order server</b>Check the connection, it retries by itself.</div>'} }); }
 document.getElementById('list').addEventListener('click',function(e){
   var b=e.target.closest('.act'); if(!b) return;
-  var next=b.dataset.st==='new'?'ready':'done';
-  orders.forEach(function(o){ if(o.id===b.dataset.id) o.status=next }); paint();
+  var next=b.dataset.st==='new'?'ready':'done', hit=null;
+  orders.forEach(function(o){ if(o.id===b.dataset.id){ o.status=next; hit=o } }); paint();
+  // Ready → open the shop's own Messages with the text written; they tap send (free, from their number)
+  if(next==='ready'&&hit&&hit.phone){
+    var num=hit.phone.length===10?'+1'+hit.phone:'+'+hit.phone;
+    var msg='Hi '+hit.name+', your order #'+hit.num+' is ready at The Louisiana Bean! ☕';
+    location.href='sms:'+num+(isIOS?'&':'?')+'body='+encodeURIComponent(msg);
+  }
   post('/orders/'+b.dataset.id+'/status',{status:next}).catch(load);
 });
 document.getElementById('sample').addEventListener('click',function(){

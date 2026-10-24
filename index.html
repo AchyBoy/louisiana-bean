@@ -13,7 +13,7 @@
    fetched with a unique URL (never cached); if it names a newer build than this
    page, hop once to ?v=<build>, a URL the cache has never seen. No popup.
    deploy.sh stamps BUILD, version.json and every asset ?v= together. */
-var BUILD='20261024-145651';
+var BUILD='20261024-150504';
 (function(){
   if(location.protocol==='file:') return;
   window.__freshPending=true;   /* the visit tracker waits on this so a hop counts once */
@@ -84,7 +84,7 @@ var BUILD='20261024-145651';
 
   /* ---------- hero ---------- */
   .hero{position:relative;color:var(--crema);min-height:min(84svh,680px);display:flex;align-items:center;overflow:hidden;background:#1a110c}
-  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261024-145651) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
+  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261024-150504) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
   @media (min-width:821px){
     .hero-bg{top:auto;aspect-ratio:910/412;background-size:100% auto;background-position:center bottom;
       -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 38%);mask-image:linear-gradient(180deg,transparent 0,#000 38%)}
@@ -436,7 +436,7 @@ var BUILD='20261024-145651';
   </defs>
 </svg>
 
-<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261024-145651" type="audio/mp4"></audio>
+<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261024-150504" type="audio/mp4"></audio>
 <button class="cupfab" id="cupFab" type="button" aria-label="Sign a cup on the Cup Wall">
   <span class="bubble">Sign a cup ✍️</span>
   <svg viewBox="0 0 68 84" width="68" height="84" aria-hidden="true">
@@ -482,7 +482,7 @@ var BUILD='20261024-145651';
 
 <header class="hero">
   <div class="hero-bg" role="img" aria-label="The Louisiana Bean coffee truck at sunset"></div>
-  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261024-145651" aria-hidden="true"><source src="img/pour.mp4?v=20261024-145651" type="video/mp4"></video></div>
+  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261024-150504" aria-hidden="true"><source src="img/pour.mp4?v=20261024-150504" type="video/mp4"></video></div>
   <svg class="garland" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true" id="garland"></svg>
   <svg class="lights" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true" id="lights"></svg>
   <div class="leaves" id="leaves" aria-hidden="true"></div>
@@ -586,7 +586,7 @@ var BUILD='20261024-145651';
     </div>
     <div class="truck-grid">
       <div class="rv">
-        <div class="truck-photo"><img src="img/truck.jpg?v=20261024-145651" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
+        <div class="truck-photo"><img src="img/truck.jpg?v=20261024-150504" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
         <div class="book-card">
           <h3>Bring the truck to you</h3>
           <p>Offices, schools, makers markets, church events, weddings and parties. Tell us the date and place and we'll pull up and keep the line moving.</p>
@@ -605,7 +605,7 @@ var BUILD='20261024-145651';
 <section class="crew" id="crew">
   <svg class="stain" style="width:300px;height:300px;right:-100px;bottom:-40px;opacity:.3;transform:rotate(-30deg)"><use href="#stain"/></svg>
   <div class="wrap crew-grid">
-    <div class="crew-photo rv"><img src="img/team.jpg?v=20261024-145651" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
+    <div class="crew-photo rv"><img src="img/team.jpg?v=20261024-150504" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
     <div class="rv">
       <div class="eyebrow">Our Crew</div>
       <h2 style="font-size:clamp(2rem,4vw,2.7rem)">Coffee made by people you know.</h2>
@@ -969,7 +969,7 @@ function cartView(){
   h+='<div class="sum"><span>Subtotal</span><span>'+money(sub)+'</span></div><div class="sum"><span>Tax</span><span>'+money(tax)+'</span></div><div class="sum big"><span>Total</span><span>'+money(sub+tax)+'</span></div>';
   h+='<div class="opt"><b>Ready</b><div class="chips">'+[['asap','ASAP, about 10 min'],['20','In 20 min'],['30','In 30 min']].map(function(o){return '<button class="chip" data-c="pick" data-v="'+o[0]+'" aria-pressed="'+(pick===o[0])+'">'+o[1]+'</button>'}).join('')+'</div></div>';
   h+='<label class="field"><span>Name for the order</span><input id="oName" autocomplete="given-name" placeholder="Your first name"></label>';
-  h+='<label class="field"><span>Phone, for a text when it\'s ready</span><input id="oPhone" type="tel" autocomplete="tel" placeholder="(337) 555-0123"></label>';
+  h+='<label class="field"><span>Phone, for a text when it\'s ready (demo: use your own)</span><input id="oPhone" type="tel" autocomplete="tel" placeholder="(337) 555-0123"></label>';
   h+='<div class="field"><span>Payment</span><div class="card-demo"><span>💳 Card, Apple Pay or Google Pay</span><b>DEMO</b></div></div>';
   h+='<button class="btn btn-main" data-c="place" style="width:100%;justify-content:center;margin-top:16px">Place order · '+money(sub+tax)+'</button>';
   h+='<p class="fine center">Demo only, no card is charged. Paid securely through Stripe when live.</p>';
@@ -986,7 +986,7 @@ cartSheet.addEventListener('click',function(e){
     var sub=cartSub(), tax=Math.round(sub*TAX_RATE*100)/100;
     var at=readyAt(), total=Math.round((sub+tax)*100)/100;
     b.disabled=true; b.textContent='Placing your order…';
-    fetch(ORDER_API+'/orders',{method:'POST',body:JSON.stringify({name:nm.value.trim().slice(0,30),items:cart.map(function(i){return {n:i.n,d:i.d,q:i.q}}),total:total,ready:at})})
+    fetch(ORDER_API+'/orders',{method:'POST',body:JSON.stringify({name:nm.value.trim().slice(0,30),phone:document.getElementById('oPhone').value,items:cart.map(function(i){return {n:i.n,d:i.d,q:i.q}}),total:total,ready:at})})
       .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json() })
       .then(function(j){
         if(window.track) track('order-placed', money(total));
