@@ -13,7 +13,7 @@
    fetched with a unique URL (never cached); if it names a newer build than this
    page, hop once to ?v=<build>, a URL the cache has never seen. No popup.
    deploy.sh stamps BUILD, version.json and every asset ?v= together. */
-var BUILD='20261024-124413';
+var BUILD='20261024-134149';
 (function(){
   if(location.protocol==='file:') return;
   window.__freshPending=true;   /* the visit tracker waits on this so a hop counts once */
@@ -84,7 +84,7 @@ var BUILD='20261024-124413';
 
   /* ---------- hero ---------- */
   .hero{position:relative;color:var(--crema);min-height:min(84svh,680px);display:flex;align-items:center;overflow:hidden;background:#1a110c}
-  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261024-124413) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
+  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261024-134149) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
   @media (min-width:821px){
     .hero-bg{top:auto;aspect-ratio:910/412;background-size:100% auto;background-position:center bottom;
       -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 38%);mask-image:linear-gradient(180deg,transparent 0,#000 38%)}
@@ -371,6 +371,33 @@ var BUILD='20261024-124413';
     *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
     .badge .ring{stroke-dashoffset:0}
   }
+
+  /* ---------- ordering: demo switch, cart bar, cart sheet (option 2) ---------- */
+  .optswitch{position:fixed;z-index:40;left:50%;top:122px;transition:opacity .2s;transform:translateX(-50%);display:flex;align-items:center;gap:4px;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:4px;box-shadow:0 8px 24px rgba(0,0,0,.18);font-size:.8rem}
+  .optswitch span{padding:0 8px 0 10px;color:var(--muted);font-weight:600}
+  .optswitch button{font:inherit;font-weight:700;border:0;border-radius:999px;padding:7px 12px;background:none;color:var(--ink);cursor:pointer}
+  .optswitch button[aria-pressed=true]{background:var(--roast);color:var(--crema)}
+  .cartbar{position:fixed;z-index:45;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translate(-50%,140%);transition:transform .3s cubic-bezier(.2,.9,.3,1);width:min(480px,calc(100% - 28px));display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--roast);color:var(--crema);border:0;border-radius:16px;padding:14px 18px;font:inherit;font-weight:700;box-shadow:0 14px 34px rgba(0,0,0,.35);cursor:pointer}
+  .cartbar.show{transform:translate(-50%,0)}
+  .cartbar .cnt{background:var(--caramel);color:var(--roast);border-radius:999px;padding:2px 9px;margin-right:8px;font-size:.85rem}
+  body.has-cart .cupfab{display:none}
+  .cline{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .cline b{display:block}
+  .cline small{color:var(--muted);font-size:.84rem}
+  .cline .rt{text-align:right;white-space:nowrap}
+  .cline .rm{font:inherit;font-size:.8rem;color:var(--ring);background:none;border:0;padding:4px 0;cursor:pointer;text-decoration:underline}
+  .sum{display:flex;justify-content:space-between;color:var(--muted);font-size:.92rem;margin:8px 0 0}
+  .sum.big{color:var(--ink);font-weight:800;font-size:1.15rem;margin-top:10px}
+  .field{display:block;margin:12px 0 0}
+  .field span{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-weight:700}
+  .field input{width:100%;font:inherit;font-size:1rem;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--ink)}
+  .field input:focus{outline:2px solid var(--caramel);border-color:var(--caramel)}
+  .card-demo{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:12px;border:1.5px dashed var(--line);background:#fff;color:var(--muted);font-size:.92rem}
+  .card-demo b{color:var(--ink);letter-spacing:.08em}
+  .card-demo span{display:inline;font-size:.92rem;letter-spacing:0;text-transform:none;font-weight:500;margin:0;color:var(--muted)}
+  body.sheet-open .optswitch{opacity:0;pointer-events:none}
+  .done-ic{width:64px;height:64px;border-radius:50%;background:#2f7a4a;color:#fff;display:grid;place-items:center;font-size:2rem;margin:6px auto 12px}
+  .center{text-align:center}
 </style>
 </head>
 <body>
@@ -408,7 +435,7 @@ var BUILD='20261024-124413';
   </defs>
 </svg>
 
-<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261024-124413" type="audio/mp4"></audio>
+<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261024-134149" type="audio/mp4"></audio>
 <button class="cupfab" id="cupFab" type="button" aria-label="Sign a cup on the Cup Wall">
   <span class="bubble">Sign a cup ✍️</span>
   <svg viewBox="0 0 68 84" width="68" height="84" aria-hidden="true">
@@ -449,7 +476,7 @@ var BUILD='20261024-124413';
 
 <header class="hero">
   <div class="hero-bg" role="img" aria-label="The Louisiana Bean coffee truck at sunset"></div>
-  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261024-124413" aria-hidden="true"><source src="img/pour.mp4?v=20261024-124413" type="video/mp4"></video></div>
+  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261024-134149" aria-hidden="true"><source src="img/pour.mp4?v=20261024-134149" type="video/mp4"></video></div>
   <svg class="garland" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true" id="garland"></svg>
   <svg class="lights" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true" id="lights"></svg>
   <div class="leaves" id="leaves" aria-hidden="true"></div>
@@ -553,7 +580,7 @@ var BUILD='20261024-124413';
     </div>
     <div class="truck-grid">
       <div class="rv">
-        <div class="truck-photo"><img src="img/truck.jpg?v=20261024-124413" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
+        <div class="truck-photo"><img src="img/truck.jpg?v=20261024-134149" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
         <div class="book-card">
           <h3>Bring the truck to you</h3>
           <p>Offices, schools, makers markets, church events, weddings and parties. Tell us the date and place and we'll pull up and keep the line moving.</p>
@@ -572,7 +599,7 @@ var BUILD='20261024-124413';
 <section class="crew" id="crew">
   <svg class="stain" style="width:300px;height:300px;right:-100px;bottom:-40px;opacity:.3;transform:rotate(-30deg)"><use href="#stain"/></svg>
   <div class="wrap crew-grid">
-    <div class="crew-photo rv"><img src="img/team.jpg?v=20261024-124413" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
+    <div class="crew-photo rv"><img src="img/team.jpg?v=20261024-134149" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
     <div class="rv">
       <div class="eyebrow">Our Crew</div>
       <h2 style="font-size:clamp(2rem,4vw,2.7rem)">Coffee made by people you know.</h2>
@@ -686,7 +713,23 @@ var BUILD='20261024-124413';
   <div class="total"><span>Your drink</span><span class="amt" id="sheetAmt"></span></div>
   <p class="fine" id="sheetFine">Before tax. Order at the shop or the truck.</p>
   <a class="btn btn-main" data-order hidden style="width:100%;justify-content:center;margin-top:14px">Order this ahead</a>
+  <button class="btn btn-main" id="addCart" type="button" hidden style="width:100%;justify-content:center;margin-top:14px">Add to order</button>
   <button class="btn btn-dark" id="sheetDone" style="width:100%;justify-content:center;margin-top:10px">Done</button>
+</div>
+
+<div class="optswitch" id="optSwitch" hidden role="group" aria-label="Demo ordering option">
+  <span>Demo</span>
+  <button type="button" data-opt="link" aria-pressed="true">Option 1</button>
+  <button type="button" data-opt="here" aria-pressed="false">Option 2</button>
+</div>
+
+<button class="cartbar" id="cartBar" type="button" aria-label="View your order">
+  <span><span class="cnt" id="cartCnt">0</span>View your order</span><span id="cartTot">$0.00</span>
+</button>
+
+<div class="sheet" id="cartSheet" role="dialog" aria-modal="true" aria-labelledby="cartH">
+  <div class="grab"></div>
+  <div id="cartBody"></div>
 </div>
 
 <script>
@@ -785,31 +828,58 @@ function rows(list, el, kind){
 }
 rows(COFFEE,'coffeeList','c'); rows(REFRESH,'refreshList','r');
 
-/* ===== Online ordering. Paste the shop's COMMISSION FREE ordering link here
-   (DoorDash Online Ordering / Storefront, Square, Toast), NOT their DoorDash app listing.
-   'DEMO' = buttons show a note instead of leaving. Blank = every Order button hides. ===== */
+/* ===== Online ordering. TWO WAYS, pick one per shop:
+   ORDER_MODE='link' (option 1): every Order button opens ORDER_URL, the shop's COMMISSION FREE
+     ordering (DoorDash Online Ordering / Storefront, Square, Toast), NOT their DoorDash app listing.
+     ORDER_URL 'DEMO' = buttons show a note instead of leaving. Blank = Order buttons hide.
+   ORDER_MODE='here' (option 2): order and pay right on this site (cart + checkout), orders ding
+     on the shop's screen (orders.html). DEMO for now: no card is charged, orders stay on this device.
+   ORDER_DEMO=true shows the Option 1 / Option 2 switch so we can show the owner both. ===== */
 var ORDER_URL='DEMO';
+var ORDER_MODE='link';
+var ORDER_DEMO=true;
+var TAX_RATE=0.0995;     // Carencro sales tax, CHECK before going live
+var PICKUP_AT='the shop in Carencro';
 (function(){
-  var on=!!ORDER_URL, demo=ORDER_URL==='DEMO';
-  document.querySelectorAll('[data-order]').forEach(function(a){
-    if(!on){ if(a.closest('nav')){a.textContent='Find the truck';a.setAttribute('href','#truck');a.removeAttribute('data-order')} else a.hidden=true; return; }
-    a.hidden=false;
-    if(!demo){a.href=ORDER_URL;a.target='_blank';a.rel='noopener'}
-    else a.removeAttribute('href'), a.setAttribute('role','button'), a.tabIndex=0;
-  });
-  if(on){
-    document.querySelectorAll('[data-noorder]').forEach(function(a){a.hidden=true});
-    var f=document.getElementById('sheetFine'); if(f) f.textContent='Before tax. Order ahead online, or at the shop or the truck.';
+  try{ var q=new URL(location.href).searchParams.get('opt'); var m=q==='2'?'here':q==='1'?'link':localStorage.getItem('lb-opt'); if(ORDER_DEMO&&(m==='here'||m==='link')) ORDER_MODE=m; }catch(e){}
+  var navBtn=document.querySelector('nav [data-order]');
+  function apply(){
+    var link=ORDER_MODE==='link', on=link?!!ORDER_URL:true, demo=ORDER_URL==='DEMO';
+    document.querySelectorAll('[data-order]').forEach(function(a){
+      a.removeAttribute('target'); a.removeAttribute('rel');
+      if(!on){ if(a===navBtn){a.textContent='Find the truck';a.href='#truck'} else a.hidden=true; return; }
+      a.hidden = !link && !!a.closest('.sheet');   // option 2 uses the Add to order button in the drink sheet
+      if(a===navBtn) a.textContent='Order ahead';
+      if(link && !demo){a.href=ORDER_URL;a.target='_blank';a.rel='noopener'}
+      else { a.removeAttribute('href'); a.setAttribute('role','button'); a.tabIndex=0; }
+    });
+    document.getElementById('addCart').hidden = link;
+    document.querySelectorAll('[data-noorder]').forEach(function(a){a.hidden=on});
+    var f=document.getElementById('sheetFine');
+    if(f) f.textContent = !on ? 'Before tax. Order at the shop or the truck.' : link ? 'Before tax. Order ahead online, or at the shop or the truck.' : 'Before tax. Add it to your order, pay online, pick it up at '+PICKUP_AT+'.';
+    document.querySelectorAll('#optSwitch button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.opt===ORDER_MODE?'true':'false')});
+    window.cartPaint&&cartPaint();
   }
+  window.applyOrderMode=apply;
+  if(ORDER_DEMO){
+    var sw=document.getElementById('optSwitch'); sw.hidden=false;
+    sw.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b) return;
+      ORDER_MODE=b.dataset.opt; try{localStorage.setItem('lb-opt',ORDER_MODE)}catch(e){}
+      apply(); note(ORDER_MODE==='link'?'Option 1: Order buttons go to DoorDash\'s commission free ordering.':'Option 2: customers order and pay right here.');
+      if(window.track) track('order-demo', ORDER_MODE);
+    });
+  }
+  function note(t){ var el=document.getElementById('toast'); el.textContent=t; el.classList.add('on'); clearTimeout(el._h); el._h=setTimeout(function(){el.classList.remove('on')},4200); }
+  window.orderNote=note;
   document.addEventListener('click',function(e){
-    var a=e.target.closest('[data-order]'); if(!a||!on) return;
-    if(window.track) track('order', a.textContent);
-    if(!demo) return;
+    var a=e.target.closest('[data-order]'); if(!a) return;
+    if(window.track) track('order', ORDER_MODE+': '+a.textContent);
+    if(ORDER_MODE==='here'){ e.preventDefault(); if(window.cartCount&&cartCount()) openCart(); else { document.getElementById('menu').scrollIntoView({behavior:'smooth'}); note('Tap a drink to start your order ☕'); } return; }
+    if(ORDER_URL!=='DEMO') return;
     e.preventDefault();
-    var t=document.getElementById('toast');
-    t.textContent='Demo: this opens the shop\'s commission free online ordering, ready for pickup.';
-    t.classList.add('on'); clearTimeout(t._h); t._h=setTimeout(function(){t.classList.remove('on')},4200);
+    note('Demo: this opens the shop\'s commission free online ordering, ready for pickup.');
   });
+  window.addEventListener('DOMContentLoaded',apply); if(document.readyState!=='loading') setTimeout(apply,0);
 })();
 /* build-your-drink */
 var cur=null, sel={};
@@ -859,6 +929,77 @@ document.addEventListener('click',function(e){
 });
 scrim.addEventListener('click',closeSheet);
 document.getElementById('sheetDone').addEventListener('click',closeSheet);
+
+/* ===== option 2: cart + checkout (DEMO: nothing is charged; orders go to orders.html on this device) ===== */
+var cart=[]; try{cart=JSON.parse(sessionStorage.getItem('lb-cart')||'[]')}catch(e){}
+var cartSheet=document.getElementById('cartSheet'), cartBody=document.getElementById('cartBody');
+function cartCount(){return cart.reduce(function(n,i){return n+i.q},0)}
+function cartSub(){return cart.reduce(function(n,i){return n+i.price*i.q},0)}
+function cartSave(){try{sessionStorage.setItem('lb-cart',JSON.stringify(cart))}catch(e){}}
+function cartPaint(){
+  var n=cartCount(), on=ORDER_MODE==='here'&&n>0;
+  document.getElementById('cartCnt').textContent=n;
+  document.getElementById('cartTot').textContent=money(cartSub());
+  document.getElementById('cartBar').classList.toggle('show',on && !document.querySelector('.sheet.on'));
+  document.body.classList.toggle('has-cart',on);
+  document.body.classList.toggle('sheet-open',!!document.querySelector('.sheet.on'));
+}
+function drinkDesc(){
+  var bits=[]; if(cur.p.length>1) bits.push(sel.size?'Large':'Medium');
+  if(cur.milk&&sel.milk!=='Regular') bits.push(sel.milk+' milk');
+  if(sel.shot) bits.push('extra shot'); if(sel.flavor) bits.push('extra flavor'); if(sel.foam) bits.push('cold foam'); if(sel.blend) bits.push('blended');
+  return bits.join(', ');
+}
+document.getElementById('addCart').addEventListener('click',function(){
+  if(!cur||!cur.p) return;
+  var d=drinkDesc(), hit=cart.filter(function(i){return i.n===cur.n&&i.d===d})[0];
+  if(hit) hit.q++; else cart.push({n:cur.n,d:d,price:Math.round(price()*100)/100,q:1});
+  cartSave(); closeSheet(); orderNote('Added '+cur.n+' to your order'); if(window.track) track('cart-add',cur.n); setTimeout(cartPaint,350);
+});
+function openCart(){ var t=document.getElementById('toast'); t.classList.remove('on'); cartView(); scrim.classList.add('on'); cartSheet.classList.add('on'); cartPaint(); }
+function closeCart(){ cartSheet.classList.remove('on'); scrim.classList.remove('on'); setTimeout(cartPaint,350); }
+var pick='asap';
+function readyAt(){ var m=pick==='asap'?10:+pick, t=new Date(Date.now()+m*60000); return t.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/Chicago'}); }
+function cartView(){
+  if(!cart.length){ cartBody.innerHTML='<h3 id="cartH">Your order</h3><p class="sub">Nothing here yet. Tap a drink on the menu to add it.</p><button class="btn btn-dark" data-c="close" style="width:100%;justify-content:center;margin-top:10px">Back to the menu</button>'; return; }
+  var sub=cartSub(), tax=Math.round(sub*TAX_RATE*100)/100, h='';
+  h+='<h3 id="cartH">Your order</h3><p class="sub">Pickup at '+esc(PICKUP_AT)+'</p>';
+  cart.forEach(function(i,k){ h+='<div class="cline"><div><b>'+(i.q>1?i.q+' × ':'')+esc(i.n)+'</b><small>'+esc(i.d||'')+'</small></div><div class="rt">'+money(i.price*i.q)+'<br><button class="rm" data-c="rm" data-k="'+k+'">Remove</button></div></div>'; });
+  h+='<div class="sum"><span>Subtotal</span><span>'+money(sub)+'</span></div><div class="sum"><span>Tax</span><span>'+money(tax)+'</span></div><div class="sum big"><span>Total</span><span>'+money(sub+tax)+'</span></div>';
+  h+='<div class="opt"><b>Ready</b><div class="chips">'+[['asap','ASAP, about 10 min'],['20','In 20 min'],['30','In 30 min']].map(function(o){return '<button class="chip" data-c="pick" data-v="'+o[0]+'" aria-pressed="'+(pick===o[0])+'">'+o[1]+'</button>'}).join('')+'</div></div>';
+  h+='<label class="field"><span>Name for the order</span><input id="oName" autocomplete="given-name" placeholder="Your first name"></label>';
+  h+='<label class="field"><span>Phone, for a text when it\'s ready</span><input id="oPhone" type="tel" autocomplete="tel" placeholder="(337) 555-0123"></label>';
+  h+='<div class="field"><span>Payment</span><div class="card-demo"><span>💳 Card, Apple Pay or Google Pay</span><b>DEMO</b></div></div>';
+  h+='<button class="btn btn-main" data-c="place" style="width:100%;justify-content:center;margin-top:16px">Place order · '+money(sub+tax)+'</button>';
+  h+='<p class="fine center">Demo only, no card is charged. Paid securely through Stripe when live.</p>';
+  h+='<button class="btn" data-c="close" style="width:100%;justify-content:center;margin-top:6px;background:none;color:var(--muted)">Keep browsing</button>';
+  cartBody.innerHTML=h;
+}
+cartSheet.addEventListener('click',function(e){
+  var b=e.target.closest('[data-c]'); if(!b) return; var c=b.dataset.c;
+  if(c==='close') return closeCart();
+  if(c==='rm'){ var i=cart[+b.dataset.k]; if(i.q>1) i.q--; else cart.splice(+b.dataset.k,1); cartSave(); cartView(); cartPaint(); return; }
+  if(c==='pick'){ pick=b.dataset.v; cartView(); return; }
+  if(c==='place'){
+    var nm=document.getElementById('oName'); if(!nm.value.trim()){ nm.focus(); nm.placeholder='We need a name for the cup'; return; }
+    var sub=cartSub(), tax=Math.round(sub*TAX_RATE*100)/100;
+    var num=1040+Math.floor(Math.random()*60), at=readyAt();
+    var order={id:Date.now(),num:num,name:nm.value.trim().slice(0,30),phone:document.getElementById('oPhone').value.trim().slice(0,20),items:cart,total:Math.round((sub+tax)*100)/100,ready:at,placed:Date.now(),status:'new'};
+    try{ var all=JSON.parse(localStorage.getItem('lb-orders')||'[]'); all.push(order); localStorage.setItem('lb-orders',JSON.stringify(all.slice(-30))); }catch(e){}
+    try{ new BroadcastChannel('lb-orders').postMessage(order) }catch(e){}
+    if(window.track) track('order-placed', money(order.total));
+    cart=[]; cartSave(); cartPaint();
+    cartBody.innerHTML='<div class="center"><div class="done-ic">✓</div><h3 id="cartH">Order #'+num+' is in!</h3><p class="sub">Ready around <b>'+at+'</b> at '+esc(PICKUP_AT)+'. We\'ll text you when it\'s up.</p></div>'
+      +'<a class="btn btn-main" href="orders.html" target="_blank" rel="noopener" style="width:100%;justify-content:center;margin-top:12px">See what the shop sees</a>'
+      +'<button class="btn btn-dark" data-c="close" style="width:100%;justify-content:center;margin-top:10px">Done</button>';
+  }
+});
+document.getElementById('cartBar').addEventListener('click',openCart);
+scrim.addEventListener('click',function(){ if(cartSheet.classList.contains('on')) closeCart(); });
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&cartSheet.classList.contains('on'))closeCart()});
+new MutationObserver(cartPaint).observe(sheet,{attributes:true,attributeFilter:['class']});
+new MutationObserver(cartPaint).observe(cartSheet,{attributes:true,attributeFilter:['class']});
+cartPaint();
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet()});
 
 /* hero video: only swap out the truck photo once it can really play */

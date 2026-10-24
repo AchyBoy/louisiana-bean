@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Orders · The Louisiana Bean</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--roast:#231812;--roast-2:#36241a;--crema:#f6ece0;--cream:#fffaf4;--caramel:#c98a4b;--caramel-2:#e2aa6c;--ink:#231812;--muted:#7a6656;--line:#eadccb;--ok:#2f7a4a}
+  *{box-sizing:border-box}
+  body{margin:0;font:16px/1.45 Inter,system-ui,sans-serif;background:var(--crema);color:var(--ink);min-height:100svh}
+  header{position:sticky;top:0;z-index:5;background:var(--roast);color:var(--crema);padding:14px 18px calc(14px);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  header h1{font:800 1.3rem Fraunces,serif;margin:0}
+  header small{display:block;color:var(--caramel-2);font-size:.8rem;font-weight:600}
+  .hb{display:flex;gap:8px;flex-wrap:wrap}
+  button{font:inherit;cursor:pointer}
+  .pill{border:1.5px solid rgba(246,236,224,.3);background:none;color:var(--crema);border-radius:999px;padding:8px 14px;font-weight:700;font-size:.88rem}
+  .pill.on{background:var(--caramel);border-color:var(--caramel);color:var(--roast)}
+  .demo{background:#fff3df;border-bottom:1px solid var(--line);color:var(--muted);font-size:.88rem;padding:10px 18px}
+  main{padding:18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;align-items:start}
+  .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 20px}
+  .empty b{display:block;font:800 1.4rem Fraunces,serif;color:var(--ink);margin-bottom:6px}
+  .o{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 6px 20px rgba(35,24,18,.07)}
+  .o.new{border-color:var(--caramel);box-shadow:0 0 0 4px rgba(201,138,75,.25),0 6px 20px rgba(35,24,18,.07);animation:pop .5s}
+  .o.ready{border-color:var(--ok)}
+  .o.done{opacity:.5}
+  @keyframes pop{0%{transform:scale(.94)}60%{transform:scale(1.02)}100%{transform:none}}
+  .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .num{font:800 1.5rem Fraunces,serif}
+  .tag{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:4px 10px;background:var(--caramel);color:var(--roast)}
+  .ready .tag{background:var(--ok);color:#fff}
+  .done .tag{background:var(--line);color:var(--muted)}
+  .who{font-weight:700;margin:2px 0 0}
+  .when{color:var(--muted);font-size:.88rem;margin:0 0 10px}
+  ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+  li{padding:9px 0;border-bottom:1px solid var(--line)}
+  li b{display:block}
+  li small{color:var(--muted)}
+  .tot{display:flex;justify-content:space-between;font-weight:700;margin:10px 0 12px}
+  .act{width:100%;border:0;border-radius:12px;padding:13px;font-weight:700;background:var(--roast);color:var(--crema)}
+  .ready .act{background:var(--ok);color:#fff}
+  .done .act{display:none}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>Orders</h1><small>The Louisiana Bean · Carencro</small></div>
+  <div class="hb">
+    <button class="pill" id="snd" type="button">🔈 Tap to turn on sound</button>
+    <button class="pill" id="sample" type="button">+ Sample order</button>
+    <button class="pill" id="clear" type="button">Clear</button>
+  </div>
+</header>
+<div class="demo">Demo: this is the screen on the shop's tablet. Orders placed on this device show up here and ding. When it's live, orders from every phone land here and the money goes straight to the shop through Stripe.</div>
+<main id="list"></main>
+
+<script>
+var KEY='lb-orders', soundOn=false, ctx=null, seen={};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function money(n){return '$'+(+n).toFixed(2)}
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
+function save(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}
+function ding(){
+  if(!soundOn||!ctx) return;
+  [880,1320].forEach(function(f,i){
+    var o=ctx.createOscillator(), g=ctx.createGain(), t=ctx.currentTime+i*.18;
+    o.type='sine'; o.frequency.value=f; o.connect(g); g.connect(ctx.destination);
+    g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.35,t+.02); g.gain.exponentialRampToValueAtTime(.0001,t+.5);
+    o.start(t); o.stop(t+.55);
+  });
+}
+function ago(ts){var m=Math.round((Date.now()-ts)/60000); return m<1?'just now':m+' min ago'}
+function paint(){
+  var a=load().slice().reverse(), h='', fresh=false;
+  if(!a.length) h='<div class="empty"><b>No orders yet</b>Place one on the website, or tap + Sample order.</div>';
+  a.forEach(function(o){
+    if(!seen[o.id]){ seen[o.id]=1; if(o.status==='new'&&Date.now()-o.placed<60000) fresh=true; }
+    var lab={new:'New',ready:'Ready',done:'Picked up'}[o.status];
+    h+='<article class="o '+o.status+'"><div class="top"><span class="num">#'+o.num+'</span><span class="tag">'+lab+'</span></div>'
+      +'<p class="who">'+esc(o.name)+(o.phone?' · '+esc(o.phone):'')+'</p><p class="when">Placed '+ago(o.placed)+' · ready by '+esc(o.ready)+'</p><ul>'
+      +o.items.map(function(i){return '<li><b>'+(i.q>1?i.q+' × ':'')+esc(i.n)+'</b><small>'+esc(i.d||'')+'</small></li>'}).join('')
+      +'</ul><div class="tot"><span>Paid online</span><span>'+money(o.total)+'</span></div>'
+      +'<button class="act" type="button" data-id="'+o.id+'">'+(o.status==='new'?'Mark ready (texts the customer)':'Picked up')+'</button></article>';
+  });
+  document.getElementById('list').innerHTML=h;
+  if(fresh) ding();
+}
+document.getElementById('list').addEventListener('click',function(e){
+  var b=e.target.closest('.act'); if(!b) return;
+  var a=load(); a.forEach(function(o){ if(String(o.id)===b.dataset.id) o.status=o.status==='new'?'ready':'done'; }); save(a); paint();
+});
+document.getElementById('snd').addEventListener('click',function(){
+  soundOn=!soundOn; if(soundOn&&!ctx){ try{ctx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){} }
+  this.textContent=soundOn?'🔊 Sound on':'🔈 Tap to turn on sound'; this.classList.toggle('on',soundOn); if(soundOn) ding();
+});
+document.getElementById('sample').addEventListener('click',function(){
+  var names=['Danielle','Marcus','Tre','Brooke','Kayla','Jude'];
+  var o={id:Date.now(),num:1040+Math.floor(Math.random()*60),name:names[Math.floor(Math.random()*names.length)],phone:'',
+    items:[{n:'Caramel Macchiato',d:'Large, Oat milk, extra shot',q:1},{n:'Bayou Peach',d:'Medium',q:1}],
+    total:14.62,ready:new Date(Date.now()+600000).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/Chicago'}),placed:Date.now(),status:'new'};
+  var a=load(); a.push(o); save(a); paint();
+});
+document.getElementById('clear').addEventListener('click',function(){ save([]); seen={}; paint(); });
+addEventListener('storage',function(e){ if(e.key===KEY) paint(); });
+try{ new BroadcastChannel('lb-orders').onmessage=function(){ setTimeout(paint,50) } }catch(e){}
+load().forEach(function(o){seen[o.id]=1});
+paint(); setInterval(paint,30000);
+</script>
+</body>
+</html>
