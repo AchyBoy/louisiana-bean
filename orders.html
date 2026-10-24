@@ -5,6 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>LB Orders</title>
+<script>
+/* Always fresh (website profile): if version.json names a newer build than this page, hop once
+   to ?v=<build>. A Home Screen app is rarely reloaded, so this also runs every time it comes back
+   on screen. deploy.sh stamps BUILD here and in index.html together. */
+var BUILD='20261024-151029';
+(function(){
+  if(location.protocol==='file:') return;
+  function check(){
+    fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+      if(!j||!j.build||j.build===BUILD) return;
+      var k='lb-orders-fresh-'+j.build; try{ if(sessionStorage.getItem(k)) return; sessionStorage.setItem(k,'1'); }catch(e){}
+      var u=new URL(location.href); u.searchParams.set('v',j.build); location.replace(u.toString());
+    }).catch(function(){});
+  }
+  check();
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden) check(); });
+  addEventListener('pageshow',function(e){ if(e.persisted) check(); });
+})();
+</script>
 <link rel="manifest" href="/orders.webmanifest">
 <link rel="apple-touch-icon" href="/img/orders-icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">

@@ -11,6 +11,10 @@ s2,n=re.subn(r"var BUILD='[^']*';", "var BUILD='%s';"%b, s)
 assert n==1, 'BUILD var missing'
 s2=re.sub(r'((?:img/[\w.-]+|music\.m4a))(\?v=[\w-]+)?(?=["\')])', lambda m: m.group(1)+'?v='+b, s2)
 open(p,'w').write(s2)
+o=open('orders.html').read()
+o2,n=re.subn(r"var BUILD='[^']*';", "var BUILD='%s';"%b, o)
+assert n==1, 'BUILD var missing in orders.html'
+open('orders.html','w').write(o2)
 open('version.json','w').write('{"build":"%s"}\n'%b)
 PY
 git add -A
