@@ -13,7 +13,7 @@
    fetched with a unique URL (never cached); if it names a newer build than this
    page, hop once to ?v=<build>, a URL the cache has never seen. No popup.
    deploy.sh stamps BUILD, version.json and every asset ?v= together. */
-var BUILD='20261024-134149';
+var BUILD='20261024-143411';
 (function(){
   if(location.protocol==='file:') return;
   window.__freshPending=true;   /* the visit tracker waits on this so a hop counts once */
@@ -84,7 +84,7 @@ var BUILD='20261024-134149';
 
   /* ---------- hero ---------- */
   .hero{position:relative;color:var(--crema);min-height:min(84svh,680px);display:flex;align-items:center;overflow:hidden;background:#1a110c}
-  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261024-134149) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
+  .hero-bg{position:absolute;inset:0;background:url(img/truck.jpg?v=20261024-143411) 100% 62%/cover no-repeat;transform:scale(1.04);animation:drift 22s ease-in-out infinite alternate}
   @media (min-width:821px){
     .hero-bg{top:auto;aspect-ratio:910/412;background-size:100% auto;background-position:center bottom;
       -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 38%);mask-image:linear-gradient(180deg,transparent 0,#000 38%)}
@@ -373,10 +373,11 @@ var BUILD='20261024-134149';
   }
 
   /* ---------- ordering: demo switch, cart bar, cart sheet (option 2) ---------- */
-  .optswitch{position:fixed;z-index:40;left:50%;top:122px;transition:opacity .2s;transform:translateX(-50%);display:flex;align-items:center;gap:4px;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:4px;box-shadow:0 8px 24px rgba(0,0,0,.18);font-size:.8rem}
-  .optswitch span{padding:0 8px 0 10px;color:var(--muted);font-weight:600}
-  .optswitch button{font:inherit;font-weight:700;border:0;border-radius:999px;padding:7px 12px;background:none;color:var(--ink);cursor:pointer}
+  .optswitch{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--caramel);padding:5px 10px;font-size:.8rem;flex-wrap:wrap}
+  .optswitch span{padding:0 4px;color:var(--roast);font-weight:700}
+  .optswitch button{font:inherit;font-weight:700;border:1.5px solid var(--roast);border-radius:999px;padding:5px 12px;background:none;color:var(--roast);cursor:pointer;white-space:nowrap}
   .optswitch button[aria-pressed=true]{background:var(--roast);color:var(--crema)}
+  .optswitch[hidden]{display:none}
   .cartbar{position:fixed;z-index:45;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translate(-50%,140%);transition:transform .3s cubic-bezier(.2,.9,.3,1);width:min(480px,calc(100% - 28px));display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--roast);color:var(--crema);border:0;border-radius:16px;padding:14px 18px;font:inherit;font-weight:700;box-shadow:0 14px 34px rgba(0,0,0,.35);cursor:pointer}
   .cartbar.show{transform:translate(-50%,0)}
   .cartbar .cnt{background:var(--caramel);color:var(--roast);border-radius:999px;padding:2px 9px;margin-right:8px;font-size:.85rem}
@@ -395,7 +396,7 @@ var BUILD='20261024-134149';
   .card-demo{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:12px;border:1.5px dashed var(--line);background:#fff;color:var(--muted);font-size:.92rem}
   .card-demo b{color:var(--ink);letter-spacing:.08em}
   .card-demo span{display:inline;font-size:.92rem;letter-spacing:0;text-transform:none;font-weight:500;margin:0;color:var(--muted)}
-  body.sheet-open .optswitch{opacity:0;pointer-events:none}
+  body.has-cart .music-btn{bottom:calc(86px + env(safe-area-inset-bottom))}
   .done-ic{width:64px;height:64px;border-radius:50%;background:#2f7a4a;color:#fff;display:grid;place-items:center;font-size:2rem;margin:6px auto 12px}
   .center{text-align:center}
 </style>
@@ -435,7 +436,7 @@ var BUILD='20261024-134149';
   </defs>
 </svg>
 
-<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261024-134149" type="audio/mp4"></audio>
+<audio id="bgm" loop preload="none" playsinline><source src="music.m4a?v=20261024-143411" type="audio/mp4"></audio>
 <button class="cupfab" id="cupFab" type="button" aria-label="Sign a cup on the Cup Wall">
   <span class="bubble">Sign a cup ✍️</span>
   <svg viewBox="0 0 68 84" width="68" height="84" aria-hidden="true">
@@ -463,6 +464,11 @@ var BUILD='20261024-134149';
     </ul>
     <a class="btn btn-main" data-order href="#truck" style="padding:9px 16px;font-size:.88rem">Order ahead</a>
   </div>
+  <div class="optswitch" id="optSwitch" hidden role="group" aria-label="Demo ordering option">
+    <span>Demo:</span>
+    <button type="button" data-opt="link" aria-pressed="true">1 · DoorDash link</button>
+    <button type="button" data-opt="here" aria-pressed="false">2 · Order here</button>
+  </div>
 </nav>
 
 <div class="now" id="now" aria-live="polite">
@@ -476,7 +482,7 @@ var BUILD='20261024-134149';
 
 <header class="hero">
   <div class="hero-bg" role="img" aria-label="The Louisiana Bean coffee truck at sunset"></div>
-  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261024-134149" aria-hidden="true"><source src="img/pour.mp4?v=20261024-134149" type="video/mp4"></video></div>
+  <div class="hero-vid" id="heroVid" hidden><video id="pour" muted loop playsinline preload="auto" poster="img/pour.jpg?v=20261024-143411" aria-hidden="true"><source src="img/pour.mp4?v=20261024-143411" type="video/mp4"></video></div>
   <svg class="garland" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true" id="garland"></svg>
   <svg class="lights" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true" id="lights"></svg>
   <div class="leaves" id="leaves" aria-hidden="true"></div>
@@ -580,7 +586,7 @@ var BUILD='20261024-134149';
     </div>
     <div class="truck-grid">
       <div class="rv">
-        <div class="truck-photo"><img src="img/truck.jpg?v=20261024-134149" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
+        <div class="truck-photo"><img src="img/truck.jpg?v=20261024-143411" alt="The Louisiana Bean coffee truck parked in a field at sunset" loading="lazy"></div>
         <div class="book-card">
           <h3>Bring the truck to you</h3>
           <p>Offices, schools, makers markets, church events, weddings and parties. Tell us the date and place and we'll pull up and keep the line moving.</p>
@@ -599,7 +605,7 @@ var BUILD='20261024-134149';
 <section class="crew" id="crew">
   <svg class="stain" style="width:300px;height:300px;right:-100px;bottom:-40px;opacity:.3;transform:rotate(-30deg)"><use href="#stain"/></svg>
   <div class="wrap crew-grid">
-    <div class="crew-photo rv"><img src="img/team.jpg?v=20261024-134149" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
+    <div class="crew-photo rv"><img src="img/team.jpg?v=20261024-143411" alt="The Louisiana Bean crew in front of the shop counter and sign" loading="lazy"></div>
     <div class="rv">
       <div class="eyebrow">Our Crew</div>
       <h2 style="font-size:clamp(2rem,4vw,2.7rem)">Coffee made by people you know.</h2>
@@ -715,12 +721,6 @@ var BUILD='20261024-134149';
   <a class="btn btn-main" data-order hidden style="width:100%;justify-content:center;margin-top:14px">Order this ahead</a>
   <button class="btn btn-main" id="addCart" type="button" hidden style="width:100%;justify-content:center;margin-top:14px">Add to order</button>
   <button class="btn btn-dark" id="sheetDone" style="width:100%;justify-content:center;margin-top:10px">Done</button>
-</div>
-
-<div class="optswitch" id="optSwitch" hidden role="group" aria-label="Demo ordering option">
-  <span>Demo</span>
-  <button type="button" data-opt="link" aria-pressed="true">Option 1</button>
-  <button type="button" data-opt="here" aria-pressed="false">Option 2</button>
 </div>
 
 <button class="cartbar" id="cartBar" type="button" aria-label="View your order">
