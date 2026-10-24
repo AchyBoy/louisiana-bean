@@ -15,6 +15,10 @@ o=open('orders.html').read()
 o2,n=re.subn(r"var BUILD='[^']*';", "var BUILD='%s';"%b, o)
 assert n==1, 'BUILD var missing in orders.html'
 open('orders.html','w').write(o2)
+o=open('sticker.html').read()
+o2,n=re.subn(r"var BUILD='[^']*';", "var BUILD='%s';"%b, o)
+assert n==1, 'BUILD var missing in sticker.html'
+open('sticker.html','w').write(o2)
 open('version.json','w').write('{"build":"%s"}\n'%b)
 PY
 git add -A
